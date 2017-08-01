@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import InTheaters from '@/views/InTheaters'
 import MovieInfo from '@/views/MovieInfo'
 import Bar from '@/components/Bar'
+import FakeBar from '@/components/FakeBar'
 import Navi from '@/components/Navi'
 
 Vue.use(Router)
@@ -22,7 +23,7 @@ export default new Router({
       components: {
         default: InTheaters,
         bar: Bar,
-        navi: Navi,
+        // fakeBar: FakeBar,
       },
     },
     {

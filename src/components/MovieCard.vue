@@ -26,6 +26,7 @@ export default {
 
 <style lang="sass">
 .movie-card
+  background-color: #ddd
   background-size: 100%
   background-repeat: no-repeat
   position: relative

@@ -1,9 +1,11 @@
 <template lang="pug">
   #app
-    mu-appbar.placeholder
-    router-view(name='bar')
-    router-view
-    router-view(name='navi')
+    router-view(name="bar")
+    //- router-view(name="fakeBar")
+    transition(name="component-fade")
+      keep-alive(include="in-theaters")
+        router-view
+    //- router-view(name="navi")
 </template>
 
 <script>
@@ -17,9 +19,4 @@ export default {
   margin: 0
   padding: 0
   box-sizing: border-box
-
-.placeholder
-  opacity: 0
-
-
 </style>
