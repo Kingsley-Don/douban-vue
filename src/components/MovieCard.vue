@@ -1,6 +1,7 @@
 <template lang="pug">
 .movie-card(
   :style="{ 'background-image': 'url(' + movie.images.large + ')' }",
+  @click="toMovieInfo()"
   )
   .card-info()
     .card-title {{ movie.title }}
@@ -11,7 +12,15 @@
 <script>
 export default {
   name: 'movie-card',
-  props: ['movie']
+  props: ['movie'],
+  methods: {
+    toMovieInfo() {
+      this.$router.push({
+        name: 'movie-info',
+        params: { id: this.movie.id }
+      })
+    }
+  }
 }
 </script>
 
@@ -20,6 +29,7 @@ export default {
   background-size: 100%
   background-repeat: no-repeat
   position: relative
+  border-radius: 2px
 
   .card-info
     background-color: rgba(0, 0, 0, 0.6)

@@ -1,7 +1,11 @@
 <template lang="pug">
 #bar
   mu-appbar(:title="title")
-    mu-icon-button(:icon="icon", slot="left")
+    mu-icon-button(
+      :icon="icon",
+      slot="left",
+      @click="click"
+    )
 </template>
 
 <script>
@@ -10,6 +14,13 @@ export default {
     return {
       title: '正在热映',
       icon: 'arrow_back'
+    }
+  },
+  methods: {
+    click() {
+      if (this.icon === 'arrow_back') {
+        this.$router.go(-1)
+      }
     }
   }
 }

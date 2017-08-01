@@ -15,11 +15,9 @@ export default {
   mounted() {
     this.$axios
       .get('/api/movie/in_theaters')
-      .then(results => {
-        this.movies.push(...results.data.subjects)
-      })
+      .then(results => { this.movies.push(...results.data.subjects) })
   },
-  components: {MovieCard}
+  components: { MovieCard }
 }
 </script>
 

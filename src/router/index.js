@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
-import Hello from '@/views/Hello'
 import InTheaters from '@/views/InTheaters'
+import MovieInfo from '@/views/MovieInfo'
 import Bar from '@/components/Bar'
 import Navi from '@/components/Navi'
 
@@ -19,7 +18,7 @@ export default new Router({
     },
     {
       path: '/movie/in-theaters',
-      name: 'InTheaters',
+      name: 'in-theaters',
       components: {
         default: InTheaters,
         bar: Bar,
@@ -27,9 +26,12 @@ export default new Router({
       },
     },
     {
-      path: '/test/:id',
-      name: 'movie',
-      component: Hello,
+      path: '/movie/:id',
+      name: 'movie-info',
+      components: {
+        default: MovieInfo,
+        bar: Bar,
+      }
     },
   ],
-});
+})
