@@ -14,6 +14,19 @@ Vue.use(VueAwesomeSwiper)
 
 Vue.prototype.$axios = axios
 
+Vue.filter('formatNumber', n => {
+  let str = n.toString()
+  if (str.length < 4) {
+    return str
+  } else if (str.length < 7) {
+    return str.slice(0, str.length - 3) + 'K'
+  } else if (str.length < 10) {
+    return str.slice(0, str.length - 6) + 'M'
+  } else if (str.length < 13) {
+    return str.slice(0, str.length - 9) + 'B'
+  }
+})
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

@@ -1,11 +1,9 @@
 <template lang="pug">
-  #app
+#app
+  keep-alive
     router-view(name="bar")
-    //- router-view(name="fakeBar")
-    transition(name="component-fade")
-      keep-alive(include="in-theaters")
-        router-view
-    //- router-view(name="navi")
+  keep-alive(include="in-theaters")
+    router-view
 </template>
 
 <script>

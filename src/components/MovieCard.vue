@@ -1,12 +1,12 @@
 <template lang="pug">
-.movie-card(
+.movie-card.mu-paper(
   :style="{ 'background-image': 'url(' + movie.images.large + ')' }",
   @click="toMovieInfo()"
   )
   .card-info()
-    .card-title {{ movie.title }}
-    .card-score(v-if="movie.rating.average === 0") 暂无评分
-    .card-score(v-else) {{ movie.rating.average }}
+    p.card-title {{ movie.title }}
+    p.card-score(v-if="movie.rating.average === 0") 暂无评分
+    p.card-score(v-else-if="movie.rating.average > 0") {{ movie.rating.average.toFixed(1) }}
 </template>
 
 <script>
@@ -15,25 +15,31 @@ export default {
   props: ['movie'],
   methods: {
     toMovieInfo() {
-      this.$router.push({
-        name: 'movie-info',
-        params: { id: this.movie.id }
-      })
+      if (this.movie.id !== 0) {
+        this.$router.push({
+          name: 'movie-info',
+          params: { id: this.movie.id }
+        })
+      }
     }
   }
 }
 </script>
 
 <style lang="sass">
+$title-alpha: 0.5
+$loading-background: #e7e7e7
+$card-radius: 3px
+
 .movie-card
-  background-color: #ddd
+  background-color: $loading-background
   background-size: 100%
   background-repeat: no-repeat
   position: relative
-  border-radius: 2px
+  border-radius: $card-radius
 
   .card-info
-    background-color: rgba(0, 0, 0, 0.6)
+    background-color: rgba(0, 0, 0, $title-alpha)
     position: absolute
     bottom: 0
     left: 0
