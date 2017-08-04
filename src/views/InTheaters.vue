@@ -35,6 +35,7 @@ $columns: 3
 $grid-gap: 4px
 
 .movie-list
+  width: 100%
   margin-top: 56px + $grid-gap * 0.5
   padding: $grid-gap * 0.5
   display: grid

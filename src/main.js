@@ -29,6 +29,14 @@ Vue.filter('formatNumber', n => {
   }
 })
 
+Vue.filter('rating', n => {
+  if (typeof n === 'number' && n > 0) {
+    return n.toFixed(1)
+  } else {
+    return '暂无评分'
+  }
+})
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

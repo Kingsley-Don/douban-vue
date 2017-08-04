@@ -24,10 +24,8 @@
 
     .movie-data
       .movie-rate
-        p.movie-score.no-score(v-if="movie.rating.average === 0")
-          | 暂无评分
-        .movie-score(v-else-if="movie.rating.average > 0")
-          | {{ movie.rating.average.toFixed(1) }}
+        .movie-score(:class=" { 'no-score': movie.rating.average === 0 } ")
+          | {{ movie.rating.average | rating }}
         star-rate.movie-star(:starsData="movie.rating.stars")
 
       .movie-wish.movie-number-box
@@ -61,6 +59,7 @@ export default {
         countries: ['未知国家'],
         genres: ['未知类型'],
         rating: {
+          average: 0,
           stars: '00',
         },
         wish_count: 0,
@@ -112,7 +111,7 @@ export default {
         })
     }
   },
-  mounted() {
+  beforeMount() {
     this.getInfo()
     this.getPhotos()
   },
@@ -157,7 +156,8 @@ $data-border: 1px solid #ddd
   display: flex
   .movie-image
     margin-top: -$basic-to-top
-    width: 30%
+    width: 30vw
+    height: calc(30vw * 1.36)
     overflow: hidden
     z-index: 9
     pointer-events: none
