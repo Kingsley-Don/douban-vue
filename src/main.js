@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import axios from 'axios'
+import lodash from 'lodash'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import 'muse-ui/dist/theme-carbon.css'
@@ -12,7 +13,8 @@ import 'muse-ui/dist/theme-carbon.css'
 Vue.use(MuseUI)
 Vue.use(VueAwesomeSwiper)
 
-Vue.prototype.$axios = axios
+Object.defineProperty(Vue.prototype, '$axios', { value: axios })
+Object.defineProperty(Vue.prototype, '$_', { value: lodash })
 
 Vue.filter('formatNumber', n => {
   let str = n.toString()
