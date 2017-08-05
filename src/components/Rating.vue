@@ -1,5 +1,5 @@
 <template lang="pug">
-.stars
+#rating
   mu-icon(v-for="(s, index) in stars", :value="s", :color="color", :key="index")
 </template>
 

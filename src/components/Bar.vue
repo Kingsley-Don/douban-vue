@@ -27,7 +27,9 @@ export default {
   },
   methods: {
     goBack() {
-      if (this.leftIcon === 'arrow_back') {
+      if (this.leftIcon === 'arrow_back' && this.$route.name === 'error') {
+        this.$router.go(-2)
+      } else if (this.leftIcon === 'arrow_back') {
         this.$router.go(-1)
       }
     },
@@ -35,15 +37,32 @@ export default {
 
     },
     changeStatus(name) {
-      if (name === 'in-theaters') {
-        this.title = '正在热映'
-        this.leftIcon = 'arrow_back'
-        this.isMovie = false
-      } else if (name === 'movie-detail') {
-        this.title = ''
-        this.leftIcon = 'arrow_back'
-        this.isMovie = true
+      switch (name) {
+        case 'in-theaters':
+          this.title = '正在热映'
+          this.leftIcon = 'arrow_back'
+          this.isMovie = false
+          break
+        case 'movie-detail':
+          this.title = ''
+          this.leftIcon = 'arrow_back'
+          this.isMovie = true
+          break
+        case 'error':
+          this.title = '? ? ?'
+          this.leftIcon = 'arrow_back'
+          this.isMovie = false
+          break
       }
+      // if (name === 'in-theaters') {
+      //   this.title = '正在热映'
+      //   this.leftIcon = 'arrow_back'
+      //   this.isMovie = false
+      // } else if (name === 'movie-detail') {
+      //   this.title = ''
+      //   this.leftIcon = 'arrow_back'
+      //   this.isMovie = true
+      // }
     }
   },
   mounted() {

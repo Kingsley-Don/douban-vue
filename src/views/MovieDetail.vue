@@ -26,7 +26,7 @@
       .movie-rate
         .movie-score(:class=" { 'no-score': movie.rating.average === 0 } ")
           | {{ movie.rating.average | rating }}
-        star-rate.movie-star(:starsData="movie.rating.stars")
+        rating.movie-star(:starsData="movie.rating.stars")
 
       .movie-wish.movie-number-box
         p.movie-number.movie-wish-number
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import StarRate from '@/components/StarRate'
+import Rating from '@/components/Rating'
 
 export default {
   name: 'movie-info',
@@ -79,34 +79,21 @@ export default {
       hasPhotos: true
     }
   },
-  components: { StarRate },
+  components: { Rating },
   methods: {
     getMovie() {
       this.$axios
         .get('/api/movie/subject/' + this.$route.params.id)
         .then(response => { this.$_.merge(this.movie, response.data) })
+        .catch(error => {
+          this.$router.push({
+            name: 'error',
+            params: { errorCode: error.response.status }
+          })
+        })
     }
-    // getPhotos() {
-    //   let bird  = 'https://bird.ioliu.cn/v1/?url=',
-    //       img   = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl='
-    //       // img  = 'http://47.93.224.150:8080/img?url='
-    //   this.$axios
-    //     .get(bird + 'https://movie.douban.com/subject/' + this.$route.params.id + '/photos')
-    //     .then(response => {
-    //       const url = /https:\/\/img\d\.doubanio\.com\/view\/photo\/thumb\/public\/p\d{1,10}\.\w+/g
-    //       if (response.data.match(url) !== null) {
-    //         let tmp = response.data.match(url).slice(0, 5).map(a => img + a.replace('thumb', 'photo'))
-    //         this.photos.length = 0
-    //         this.photos.push(...tmp)
-    //       } else {
-    //         this.hasPhotos = false
-    //       }
-    //     })
-    // }
   },
-  beforeMount() {
-    this.getMovie()
-  }
+  beforeMount() { this.getMovie() }
 }
 </script>
 
