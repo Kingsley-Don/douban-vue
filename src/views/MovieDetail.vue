@@ -3,9 +3,9 @@
   .no-photos(v-if="!hasPhotos") 暂无剧照
   swiper.movie-photos(v-else, :options="swiperOption")
     swiper-slide.movie-photo(
-      v-for="(photo, index) in photos",
+      v-for="(photo, index) in movie.photos",
       :key="index",
-      :style="{ 'background-image': 'url(' + photo + ')' }")
+      :style="{ 'background-image': 'url(' + imgUrl + photo.image + ')' }")
     .swiper-pagination(slot="pagination")
 
   .movie-content-box
@@ -20,7 +20,7 @@
         p
           | {{ movie.year + '   ' + movie.countries.join(' / ') }}
           br
-          | {{ more.attrs.movie_duration.join(' / ') + '   ' + movie.genres.join(' / ') }}
+          | {{ movie.durations.join(' / ') + '   ' + movie.genres.join(' / ') }}
 
     .movie-data
       .movie-rate
@@ -63,17 +63,13 @@ export default {
           stars: '00',
         },
         wish_count: 0,
-        collect_count: 0
+        collect_count: 0,
+        durations: ['未知时长']
       },
-      more: {
-        attrs: {
-          movie_duration: ['未知时长']
-        }
-      },
-      photos: [],
+      imgUrl: 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=',
       swiperOption: {
         loop: true,
-        loopedSlides: 5,
+        loopedSlides: 10,
         speed: 400,
         autoplay: 5000,
         autoplayDisableOnInteraction: false,
@@ -85,36 +81,32 @@ export default {
   },
   components: { StarRate },
   methods: {
-    getInfo() {
+    getMovie() {
       this.$axios
         .get('/api/movie/subject/' + this.$route.params.id)
         .then(response => { this.$_.merge(this.movie, response.data) })
-      this.$axios
-        .get('/api/movie/' + this.$route.params.id)
-        .then(response => { this.$_.merge(this.more, response.data) })
-    },
-    getPhotos() {
-      let bird  = 'https://bird.ioliu.cn/v1/?url=',
-          img   = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl='
-          // img  = 'http://47.93.224.150:8080/img?url='
-      this.$axios
-        .get(bird + 'https://movie.douban.com/subject/' + this.$route.params.id + '/photos')
-        .then(response => {
-          const url = /https:\/\/img\d\.doubanio\.com\/view\/photo\/thumb\/public\/p\d{1,10}\.\w+/g
-          if (response.data.match(url) !== null) {
-            let tmp = response.data.match(url).slice(0, 5).map(a => img + a.replace('thumb', 'photo'))
-            this.photos.length = 0
-            this.photos.push(...tmp)
-          } else {
-            this.hasPhotos = false
-          }
-        })
     }
+    // getPhotos() {
+    //   let bird  = 'https://bird.ioliu.cn/v1/?url=',
+    //       img   = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl='
+    //       // img  = 'http://47.93.224.150:8080/img?url='
+    //   this.$axios
+    //     .get(bird + 'https://movie.douban.com/subject/' + this.$route.params.id + '/photos')
+    //     .then(response => {
+    //       const url = /https:\/\/img\d\.doubanio\.com\/view\/photo\/thumb\/public\/p\d{1,10}\.\w+/g
+    //       if (response.data.match(url) !== null) {
+    //         let tmp = response.data.match(url).slice(0, 5).map(a => img + a.replace('thumb', 'photo'))
+    //         this.photos.length = 0
+    //         this.photos.push(...tmp)
+    //       } else {
+    //         this.hasPhotos = false
+    //       }
+    //     })
+    // }
   },
   beforeMount() {
-    this.getInfo()
-    this.getPhotos()
-  },
+    this.getMovie()
+  }
 }
 </script>
 

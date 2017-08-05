@@ -39,7 +39,7 @@ export default {
         this.title = '正在热映'
         this.leftIcon = 'arrow_back'
         this.isMovie = false
-      } else if (name === 'movie-info') {
+      } else if (name === 'movie-detail') {
         this.title = ''
         this.leftIcon = 'arrow_back'
         this.isMovie = true

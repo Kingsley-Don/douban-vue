@@ -1,11 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue          from 'vue'
+import Router       from 'vue-router'
 
-import InTheaters from '@/views/InTheaters'
-import MovieInfo from '@/views/MovieInfo'
-import Bar from '@/components/Bar'
-import FakeBar from '@/components/FakeBar'
-import Navi from '@/components/Navi'
+import MovieHome    from '@/views/MovieHome'
+import MovieList    from '@/views/MovieList'
+import MovieDetail  from '@/views/MovieDetail'
+import Bar          from '@/components/Bar'
+// import Navi from '@/components/Navi'
 
 Vue.use(Router)
 
@@ -18,19 +18,26 @@ export default new Router({
       redirect: '/movie'
     },
     {
+      path: '/movie',
+      name: 'movie-home',
+      components: {
+        default: MovieHome,
+        bar: Bar,
+      }
+    },
+    {
       path: '/movie/in-theaters',
       name: 'in-theaters',
       components: {
-        default: InTheaters,
+        default: MovieList,
         bar: Bar,
-        // fakeBar: FakeBar,
-      },
+      }
     },
     {
       path: '/movie/:id',
-      name: 'movie-info',
+      name: 'movie-detail',
       components: {
-        default: MovieInfo,
+        default: MovieDetail,
         bar: Bar,
       }
     },

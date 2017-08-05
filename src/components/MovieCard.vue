@@ -5,8 +5,8 @@
   )
   .card-info()
     p.card-title {{ movie.title }}
-    p.card-score(v-if="movie.rating.average === 0") 暂无评分
-    p.card-score(v-else-if="movie.rating.average > 0") {{ movie.rating.average.toFixed(1) }}
+    p.card-score
+      | {{ movie.rating.average | rating }}
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
     toMovieInfo() {
       if (this.movie.id !== 0) {
         this.$router.push({
-          name: 'movie-info',
+          name: 'movie-detail',
           params: { id: this.movie.id }
         })
       }

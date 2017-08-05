@@ -3,7 +3,7 @@
   keep-alive
     router-view(name="bar")
   transition(name="fade")
-    keep-alive(include="in-theaters")
+    keep-alive(include="movie-list")
       router-view
 </template>
 

@@ -7,7 +7,7 @@
 import MovieCard from '@/components/MovieCard'
 
 export default {
-  name: 'in-theaters',
+  name: 'movie-list',
   data() {
     return {
       movies: [].fill.call(new Array(12), {

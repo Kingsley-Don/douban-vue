@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import axios from 'axios'
 import lodash from 'lodash'
@@ -15,6 +16,8 @@ Vue.use(VueAwesomeSwiper)
 
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
+
+axios.defaults.params = { apikey: '0df993c66c0c636e29ecbb5344252a4a' }
 
 Vue.filter('formatNumber', n => {
   let str = n.toString()
@@ -37,12 +40,13 @@ Vue.filter('rating', n => {
   }
 })
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
-});
+})
