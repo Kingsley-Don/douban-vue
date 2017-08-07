@@ -1,11 +1,11 @@
 <template lang="pug">
 #rating
-  mu-icon(v-for="(s, index) in stars", :value="s", :color="color", :key="index")
+  mu-icon(v-for="(s, index) in stars", :value="s", :color="color", :key="index + 100")
 </template>
 
 <script>
 export default {
-  name: 'star-rate',
+  name: 'rating',
   props: { starsData: { required: true } },
   data() {
     return {
@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     computeStar() {
-      // this.stars.fill('star_border')
       if (this.starsData === "00") {
         this.color = 'grey'
       } else {

@@ -5,7 +5,7 @@
     swiper-slide.movie-photo(
       v-for="(photo, index) in movie.photos",
       :key="index",
-      :style="{ 'background-image': 'url(' + imgUrl + photo.image + ')' }")
+      :style="{ 'background-image': 'url(' + photo.image + ')' }")
     .swiper-pagination(slot="pagination")
 
   .movie-content-box
@@ -18,27 +18,12 @@
         p(v-if="movie.title !== movie.original_title && movie.original_title !== ''")
           | {{ movie.original_title }}
         p
-          | {{ movie.year + '   ' + movie.countries.join(' / ') }}
+          //- | {{ movie.year + '   ' + movie.countries.join(' / ') }}
           br
           | {{ movie.durations.join(' / ') + '   ' + movie.genres.join(' / ') }}
 
     .movie-data
-      .movie-rate
-        .movie-score(:class=" { 'no-score': movie.rating.average === 0 } ")
-          | {{ movie.rating.average | rating }}
-        rating.movie-star(:starsData="movie.rating.stars")
-
-      .movie-wish.movie-number-box
-        p.movie-number.movie-wish-number
-          | {{ movie.wish_count | formatNumber }}
-        p.movie-number-note.movie-wish-note
-          | 想看人数
-
-      .movie-collect.movie-number-box
-        p.movie-number.movie-collect-number
-          | {{ movie.collect_count | formatNumber }}
-        p.movie-number-note.movie-collect-note
-          | 看过人数
+      rating.movie-star(:starsData="movie.rating.stars")
 
     .movie-summary
       p {{ movie.summary }}
@@ -49,24 +34,10 @@ import Rating from '@/components/Rating'
 
 export default {
   name: 'movie-info',
+
   data() {
     return {
-      movie: {
-        title: '标题',
-        original_title: '',
-        images: { large: '' },
-        year: '未知年份',
-        countries: ['未知国家'],
-        genres: ['未知类型'],
-        rating: {
-          average: 0,
-          stars: '00',
-        },
-        wish_count: 0,
-        collect_count: 0,
-        durations: ['未知时长']
-      },
-      imgUrl: 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=',
+      movie: this.$_.merge(this.$route.params.movie, { photos: [], countries: []}),
       swiperOption: {
         loop: true,
         loopedSlides: 10,
@@ -76,15 +47,20 @@ export default {
         pagination: '.swiper-pagination',
         paginationClickable: true,
       },
-      hasPhotos: true
+      hasPhotos: false
     }
   },
+
   components: { Rating },
+
   methods: {
-    getMovie() {
+    getDetail() {
       this.$axios
         .get('/api/movie/subject/' + this.$route.params.id)
-        .then(response => { this.$_.merge(this.movie, response.data) })
+        .then(response => {
+          // const IMG = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl='
+          this.$_.merge(this.movie, response.data)
+        })
         .catch(error => {
           this.$router.push({
             name: 'error',
@@ -93,7 +69,8 @@ export default {
         })
     }
   },
-  beforeMount() { this.getMovie() }
+
+  created() { this.getDetail() }
 }
 </script>
 
@@ -118,6 +95,11 @@ $data-border: 1px solid #ddd
 
 .movie-photos
   height: $photo-height
+  .swiper-pagination
+    text-align: right
+    padding-right: 20px
+    .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)
+      opacity: 0.4
   .movie-photo
     box-shadow: inset 0 110px 100px -100px black
     background-size: cover
@@ -126,12 +108,10 @@ $data-border: 1px solid #ddd
 
 .movie-content-box
   padding: 0 $slide-margin
-  background-color: #fff
   position: relative
   z-index: 99
 
 .movie-basic
-
   display: flex
   .movie-image
     margin-top: -$basic-to-top
@@ -150,52 +130,50 @@ $data-border: 1px solid #ddd
     overflow: hidden
     p.main-title
       font-size: 22px
-      color: #222
       padding-bottom: 4px
       line-height: 1.4
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
+      color: #fff
     p
+      color: #ccc
       text-overflow: ellipsis
       white-space: pre
       font-size: 14px
-      color: #666
 
 .movie-data
   border-top: $data-border
   border-bottom: $data-border
   margin: $slide-margin + 5px 0
-  display: flex
   padding: $slide-margin 0
-  .movie-rate
-    flex: 1
-    .movie-score
-      text-align: center
-      color: orange
-      font-size: 35px
-      // padding-bottom: 6px
-      line-height: 44px
-      &.no-score
-        color: grey
-        font-size: 18px
-        // line-height: 22px
-    .movie-star
-      text-align: center
-      height: 16px
-      i
-        font-size: 16px
+  // .movie-rate
+  //   .movie-score
+  //     text-align: center
+  //     color: orange
+  //     font-size: 35px
+  //     // padding-bottom: 6px
+  //     line-height: 44px
+  //     &.no-score
+  //       color: grey
+  //       font-size: 18px
+  //       // line-height: 22px
+  //   .movie-star
+  //     text-align: center
+  //     height: 16px
+  //     i
+  //       font-size: 16px
 
-  .movie-number-box
-    flex: 1
-    text-align: center
-    color: #666
-    .movie-number
-      font-size: 30px
-      line-height: 44px
-    .movie-number-note
-      font-size: 12px
-      line-height: 16px
+  // .movie-number-box
+  //   flex: 1
+  //   text-align: center
+  //   color: #666
+  //   .movie-number
+  //     font-size: 30px
+  //     line-height: 44px
+  //   .movie-number-note
+  //     font-size: 12px
+  //     line-height: 16px
 
 .movie-summary
   padding: 0 $slide-margin

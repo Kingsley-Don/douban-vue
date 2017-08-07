@@ -4,8 +4,6 @@
     .error-info
       p.error-code {{ $route.params.errorCode }}
       p 一股来自东方的神秘力量阻止了你的访问
-    //- button(@click="returnBack") 返回上一步
-    //- button(@click="returnHome") 返回首页
 </template>
 
 <script>

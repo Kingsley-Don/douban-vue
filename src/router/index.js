@@ -1,15 +1,13 @@
-import Vue          from 'vue'
-import Router       from 'vue-router'
+import Vue from 'vue'
+import Router from 'vue-router'
 
-import MovieHome    from '@/views/MovieHome'
-import MovieList    from '@/views/MovieList'
-import MovieDetail  from '@/views/MovieDetail'
-import Bar          from '@/components/Bar'
-import ErrorPage        from '@/views/Error'
-// import Navi from '@/components/Navi'
+import Home from '@/views/Home'
+import InTheaters from '@/views/InTheaters'
+import Subject from '@/views/Subject'
+import AppBar from '@/components/AppBar'
+import ErrorPage from '@/views/Error'
 
 Vue.use(Router)
-
 
 export default new Router({
   mode: 'history',
@@ -20,26 +18,26 @@ export default new Router({
     },
     {
       path: '/movie',
-      name: 'movie-home',
+      name: 'home',
       components: {
-        default: MovieHome,
-        bar: Bar,
+        default: Home,
+        bar: AppBar,
       }
     },
     {
       path: '/movie/in-theaters',
       name: 'in-theaters',
       components: {
-        default: MovieList,
-        bar: Bar,
+        default: InTheaters,
+        bar: AppBar,
       }
     },
     {
       path: '/movie/:id',
-      name: 'movie-detail',
+      name: 'subject',
       components: {
-        default: MovieDetail,
-        bar: Bar,
+        default: Subject,
+        bar: AppBar,
       }
     },
     {
@@ -47,11 +45,11 @@ export default new Router({
       name: 'error',
       components: {
         default: ErrorPage,
-        bar: Bar,
+        bar: AppBar,
       }
     },
     {
-      path: '*',
+      path: '/*',
       redirect: '/error'
     },
   ],

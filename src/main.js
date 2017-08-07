@@ -9,15 +9,13 @@ import axios from 'axios'
 import lodash from 'lodash'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
-import 'muse-ui/dist/theme-carbon.css'
+import 'muse-ui/dist/theme-dark.css'
 
 Vue.use(MuseUI)
 Vue.use(VueAwesomeSwiper)
 
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
-
-axios.defaults.params = { apikey: '0df993c66c0c636e29ecbb5344252a4a' }
 
 Vue.filter('formatNumber', n => {
   let str = n.toString()
