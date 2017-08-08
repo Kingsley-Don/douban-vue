@@ -1,7 +1,7 @@
 <template lang="pug">
 #app
   router-view(name="bar")
-  transition(name="fade")
+  transition.page(name="fade" mode="out-in")
     router-view
 </template>
 
@@ -17,27 +17,26 @@ export default {
   padding: 0
   box-sizing: border-box
 
-// .fade-enter-active
-//   transition: transform 0.4s
-//   transform: translateY(0)
-//
-// .fade-leave-active
-//   transition: all .4s
-//   transform: translateY(-10vw)
-//   opacity: 0
-//
-// .fade-leave
-//   transform: translateY(0)
-//   opacity: 1
-//
-// .fade-enter
-//   transform: translateY(100vw)
+.fade-enter-active
+  transition: all 0.15s
+  transform: translateY(0)
 
-#movie-info, .movie-list
+.fade-leave-active
+  transition: all 0.15s
+  opacity: 0
+
+.fade-leave
+  opacity: 1
+
+.fade-enter
+  opacity: 0
+
+.page
   position: absolute
   top: 0
   left: 0
-
   width: 100%
+  overflow: hidden
+
 
 </style>

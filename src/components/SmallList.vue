@@ -2,7 +2,7 @@
 .small-list
   small-card.animated.fadeInUp(
     v-for="(subject, index) in subjects"
-    :style="{ 'animation-delay': parseInt(index % 18 / 3) * 0.07 + 's' }"
+    :style="{ 'animation-delay': 0.2 + parseInt(index % 18 / 3) * 0.07 + 's' }"
     :subject="subject"
     :key="index"
   )

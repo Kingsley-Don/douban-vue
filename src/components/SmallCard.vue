@@ -5,7 +5,7 @@
   )
   .card-info
     p.card-title
-      b {{ subject.title }}
+      | {{ subject.title }}
     p.card-score
       | {{ subject.rating.average | rating }}
 </template>
@@ -45,7 +45,7 @@ export default {
 
 <style lang="sass">
 $title-alpha: 0.5
-$card-radius: 3px
+$card-radius: 2px
 
 .small-card
   overflow: hidden

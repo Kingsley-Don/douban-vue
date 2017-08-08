@@ -30,45 +30,56 @@ export default {
     SmallCard
   },
   methods: {
-    initScroll() {
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        scrollY: false
-      })
-    }
-  },
-  watch: {
-    subjects: function () {
+    updateScroll() {
       this.$nextTick(() => {
         if (!this.scroll) {
-          this.initScroll()
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            scrollY: false,
+            scrollX: true,
+            bounce: false,
+            deceleration: 0.0015,
+            preventDefault: false,
+          })
         } else {
           this.scroll.refresh()
         }
       })
     }
   },
+  watch: {
+    subjects: 'updateScroll'
+  },
+  mounted() {
+    this.updateScroll()
+  }
 }
 </script>
 
 <style lang="sass">
 $title-font-size: 22px
-$poster-width: 25vw
+$card-width: 29vw
+$card-margin: 7px
+$left: 15px
 
 .header
   display: flex
-  padding: 10px 20px
+  padding: 10px $left
   .title
     flex: 1
     font-size: 22px
   .more
     line-height: $title-font-size * 1.5
 
-.scroll-cards
-  display: flex
-  .small-card
-    flex-shrink: 0
-    width: $poster-width
-    margin: 0 5px
-    .card-poster
-      height: $poster-width * 1.35
+.scroll-wrapper
+  .scroll-cards
+    padding-left: $left
+    // display: flex
+    width: calc((#{$card-width} + #{$card-margin}) * 12 + #{$left})
+    .small-card
+      // flex-shrink: 0
+      display: inline-block
+      width: $card-width
+      margin-right: $card-margin
+      .card-poster
+        height: $card-width * 1.35
 </style>

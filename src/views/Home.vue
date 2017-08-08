@@ -4,10 +4,10 @@
     title="正在热映"
     :subjects="inTheaters.subjects"
   )
-  //- x-scroll(
-  //-   title="即将上映"
-  //-   :subjects="comingSoon.subjects"
-  //- )
+  x-scroll(
+    title="即将上映"
+    :subjects="comingSoon.subjects"
+  )
 </template>
 
 <script>
@@ -20,14 +20,14 @@ export default {
     inTheaters() {
       return {
         name: 'inTheaters',
-        subjects: this.$store.state.lists.inTheaters.subjects.slice(0, 10),
+        subjects: this.$store.state.lists.inTheaters.subjects.slice(0, 12),
         count: this.$store.state.lists.inTheaters.count
       }
     },
     comingSoon() {
       return {
         name: 'comingSoon',
-        subjects: this.$store.state.lists.comingSoon.subjects.slice(0, 10),
+        subjects: this.$store.state.lists.comingSoon.subjects.slice(0, 12),
         count: this.$store.state.lists.comingSoon.count
       }
     }
