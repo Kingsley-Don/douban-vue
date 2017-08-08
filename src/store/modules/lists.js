@@ -1,5 +1,5 @@
 import * as api from '@/api/api'
-import * as types from '../mutation-types'
+import * as types from '../types'
 
 const state = {
   inTheaters: {
@@ -19,7 +19,7 @@ const getters = {
 const mutations = {
   [types.GET_MOVIES](state, payload) {
     state[payload.name].subjects = state[payload.name].subjects.concat(payload.subjects)
-    state.count = state[payload.name].subjects.length
+    state[payload.name].count = state[payload.name].subjects.length
   }
 }
 

@@ -1,12 +1,12 @@
 <template lang="pug">
 #movie-info
   .no-photos(v-if="!hasPhotos") 暂无剧照
-  swiper.movie-photos(v-else, :options="swiperOption")
-    swiper-slide.movie-photo(
+  .movie-photos(v-else)
+    .movie-photo(
       v-for="(photo, index) in movie.photos",
       :key="index",
-      :style="{ 'background-image': 'url(' + photo.image + ')' }")
-    .swiper-pagination(slot="pagination")
+      :style="{ 'background-image': 'url(' + photo.image + ')' }"
+    )
 
   .movie-content-box
     .movie-basic
@@ -38,15 +38,6 @@ export default {
   data() {
     return {
       movie: this.$_.merge(this.$route.params.movie, { photos: [], countries: []}),
-      swiperOption: {
-        loop: true,
-        loopedSlides: 10,
-        speed: 400,
-        autoplay: 5000,
-        autoplayDisableOnInteraction: false,
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-      },
       hasPhotos: false
     }
   },

@@ -1,7 +1,6 @@
 <template lang="pug">
 #app
-  keep-alive
-    router-view(name="bar")
+  router-view(name="bar")
   transition(name="fade")
     router-view
 </template>

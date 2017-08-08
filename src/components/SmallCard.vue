@@ -1,6 +1,8 @@
 <template lang="pug">
-.small-card.mu-paper(@click="toDetail()")
-  .card-poster(:style="{ 'background-image': 'url(' + subject.images.large + ')' }")
+.small-card.mu-paper(@click="toSubject()")
+  .card-poster(
+    :style="{ 'background-image': 'url(' + subject.images.large + ')' }"
+  )
   .card-info
     p.card-title
       b {{ subject.title }}
@@ -27,7 +29,7 @@ export default {
     }
   },
   methods: {
-    toDetail() {
+    toSubject() {
       if (this.movie.id !== 0) {
         this.$router.push({
           name: 'subject',

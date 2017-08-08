@@ -6,7 +6,7 @@ const LIST_URL = {
 }
 
 export function getMovies(name, start, count) {
-  return get(LIST_URL.name, params = { start: start, count: count })
+  return get(LIST_URL[name], { start: start, count: count })
 }
 
 export function getSubject(id) {

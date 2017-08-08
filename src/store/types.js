@@ -1,3 +1,2 @@
 export const GET_MOVIES = 'GET_MOVIES'
-// export const GET_COMING_SOON = 'GET_COMING_SOON'
 export const UPDATE_SUBJECT = 'UPDATE_SUBJECT'

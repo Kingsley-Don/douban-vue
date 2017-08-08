@@ -1,6 +1,11 @@
 <template lang="pug">
 .small-list
-  small-card(v-for="(subject, index) in subjects", :subject="subject", :key="index")
+  small-card.animated.fadeInUp(
+    v-for="(subject, index) in subjects"
+    :style="{ 'animation-delay': parseInt(index % 18 / 3) * 0.07 + 's' }"
+    :subject="subject"
+    :key="index"
+  )
 </template>
 
 <script>
@@ -13,7 +18,7 @@ export default {
       type: Array,
       default: [],
       required: true
-    }
+    },
   },
   components: { SmallCard }
 }
@@ -31,6 +36,7 @@ $grid-gap: 10px
   grid-template-columns: repeat($columns, 1fr)
   grid-gap: $grid-gap
   .small-card
+    animation-duration: 0.3s
     .card-poster
-      height: calc((100vw / #{$columns} - #{$grid-gap}) * 1.36)
+      height: calc((100vw - 40px) / 3 * 1.35)
 </style>
