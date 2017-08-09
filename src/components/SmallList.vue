@@ -1,10 +1,19 @@
 <template lang="pug">
-.small-list
-  small-card.animated.fadeInUp(
-    v-for="(subject, index) in subjects"
-    :style="{ 'animation-delay': 0.2 + parseInt(index % 18 / 3) * 0.07 + 's' }"
-    :subject="subject"
-    :key="index"
+.small-list-infinite
+  .small-list
+    small-card.animated.fadeInUp(
+      v-for="(subject, index) in subjects"
+      :style="{ 'animation-delay': 0.2 + parseInt(index % 18 / 3) * 0.07 + 's' }"
+      :subject="subject"
+      :date="date"
+      :key="index"
+    )
+  mu-infinite-scroll(
+    :scroller="scroller"
+    :loading="loading"
+    :isLoaded="isLoaded"
+    loadingText="正在加载"
+    @load="load"
   )
 </template>
 
@@ -13,14 +22,41 @@ import SmallCard from '@/components/SmallCard'
 
 export default {
   name: 'small-list',
+  data() {
+    return {
+      scroller: null,
+    }
+  },
   props: {
     subjects: {
       type: Array,
       default: [],
       required: true
     },
+    date: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    isLoaded: {
+      type: Boolean,
+      default: false
+    }
   },
-  components: { SmallCard }
+  methods: {
+    load() {
+      this.$emit('load')
+    }
+  },
+  components: {
+    SmallCard
+  },
+  mounted() {
+    this.scroller = this.$el
+  }
 }
 </script>
 
@@ -28,9 +64,13 @@ export default {
 $columns: 3
 $grid-gap: 10px
 
+.small-list-infinite
+  padding-top: 56px
+  width: 100vw
+  height: 100vh
+  overflow: auto
+
 .small-list
-  width: 100%
-  margin-top: 56px
   padding: $grid-gap
   display: grid
   grid-template-columns: repeat($columns, 1fr)

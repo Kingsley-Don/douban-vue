@@ -2,10 +2,12 @@
 #movie-home
   x-scroll(
     title="正在热映"
+    listName="inTheaters"
     :subjects="inTheaters.subjects"
   )
   x-scroll(
     title="即将上映"
+    listName="comingSoon"
     :subjects="comingSoon.subjects"
   )
 </template>

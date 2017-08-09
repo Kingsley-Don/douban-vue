@@ -4,10 +4,16 @@
     :style="{ 'background-image': 'url(' + subject.images.large + ')' }"
   )
   .card-info
-    p.card-title
+    p.title
       | {{ subject.title }}
-    p.card-score
-      | {{ subject.rating.average | rating }}
+    p.subtitle(v-if="!date")
+      mu-icon(
+        v-if="subject.rating.average !== 0"
+        value="star"
+      )
+      |  {{ subject.rating.average | rating }}
+    p.subtitle(v-else)
+      | {{ subject.mainland_pubdate }}
 </template>
 
 <script>
@@ -24,8 +30,13 @@ export default {
         images: {
           large: ''
         },
+        mainland_pubdate: ''
       },
       required: false
+    },
+    date: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -59,13 +70,17 @@ $card-radius: 2px
     padding: 9px 7px
     overflow: hidden
 
-    .card-title
+    .title
       padding-bottom: 3px
-
+      color: white
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
 
-    .card-score
-      color: orange
+    .subtitle
+      color: #ccc
+      i
+        color: rgb(233, 176, 78)
+        font-size: 15px
+        vertical-align: text-top
 </style>

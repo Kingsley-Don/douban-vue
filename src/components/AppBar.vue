@@ -21,14 +21,11 @@ export default {
     title() {
       switch (this.$route.name) {
         case 'home':
-          return 'Rado'
-          break
-        case 'in-theaters':
+          return '? ? ?'
+        case 'inTheaters':
           return '正在热映'
-          break
-        case 'coming-soon':
+        case 'comingSoon':
           return '即将上映'
-          break
         default:
           return ''
       }

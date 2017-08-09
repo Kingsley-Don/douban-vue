@@ -2,29 +2,16 @@
 
 > A Vue.js project
 
-## Build Setup
+## 感谢与参考
 
-``` bash
-# install dependencies
-npm install
+- [Vue.js 及其核心插件](https://cn.vuejs.org/)
 
-# serve with hot reload at localhost:8080
-npm run dev
+- [豆瓣电影 API V2](https://developers.douban.com/wiki/?title=movie_v2)
 
-# build for production with minification
-npm run build
+- [当 better-scroll 遇见 Vue](https://github.com/DDFE/DDFE-blog/issues/15)
 
-# build for production and view the bundle analyzer report
-npm run build --report
+- [Muse-UI: 基于 Vue 2.0 和 Material Design 的 UI 组件库](http://www.muse-ui.org/)
 
-# run unit tests
-npm run unit
+- [axios: Promise based HTTP client for the browser and node.js](https://github.com/mzabriskie/axios)
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+- [Animate.css: Just-add-water CSS animations](https://daneden.github.io/animate.css/)

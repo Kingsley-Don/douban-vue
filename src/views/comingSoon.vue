@@ -1,9 +1,9 @@
 <template lang="pug">
-#in-theaters
+#comingSoon
   small-list(
     :subjects="subjects"
+    :date="true"
     :loading="loading"
-    :isLoaded="isLoaded"
     @load="updateList"
   )
 </template>
@@ -16,31 +16,29 @@ import * as types from '@/store/types'
 export default {
   data() {
     return {
-      listName: 'inTheaters',
-      loading: false,
-      isLoaded: false
+      listName: 'comingSoon',
+      loading: false
     }
   },
   computed: mapState({
-    subjects: state => state.lists.inTheaters.subjects,
-    count: state => state.lists.inTheaters.count,
-    total: state => state.lists.inTheaters.total
+    subjects: state => state.lists.comingSoon.subjects,
+    count: state => state.lists.comingSoon.count,
+    total: state => state.lists.comingSoon.total
   }),
   methods: {
     updateList() {
-      this.loading = true
-      this.$store.dispatch(types.GET_MOVIES, {
-        name: this.listName,
-        start: this.count,
-        count: 18
-      })
+      if (this.total === 0 || this.count < this.total) {
+        this.loading = true
+        this.$store.dispatch(types.GET_MOVIES, {
+          name: this.listName,
+          start: this.count,
+          count: 18
+        })
+      }
     }
   },
   watch: {
     subjects: function () {
-      if (this.total !== 0 && this.count === this.total) {
-        this.isLoaded = true
-      }
       this.loading = false
     }
   },
@@ -51,7 +49,7 @@ export default {
     if (this.count === 0) {
       this.updateList()
     }
-  },
+  }
 }
 </script>
 

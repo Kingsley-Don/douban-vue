@@ -2,7 +2,7 @@
 .x-scroll
   .header
     .title {{ title }}
-    router-link(:to="{ name: 'in-theaters' }")
+    router-link(:to="{ name: listName }")
       .more 更多
   .scroll-wrapper(ref="wrapper")
     .scroll-cards
@@ -10,6 +10,7 @@
         v-for="(subject, index) in subjects"
         :subject="subject"
         :key="index"
+        :date="date"
       )
 </template>
 
@@ -19,11 +20,32 @@ import BScroll from 'better-scroll'
 
 export default {
   name: 'x-scroll',
+  data() {
+    return {
+      scrollConfig: {
+        scrollY: false,
+        scrollX: true,
+        bounce: false,
+        deceleration: 0.001,
+        preventDefault: false,
+        directionLockThreshold: 20
+      }
+    }
+  },
   props: {
     title: String,
+    listName: String,
     subjects: {
       type: Array,
       default: []
+    }
+  },
+  computed: {
+    date() {
+      if (this.listName === 'comingSoon') {
+        return true
+      }
+      return false
     }
   },
   components: {
@@ -33,13 +55,7 @@ export default {
     updateScroll() {
       this.$nextTick(() => {
         if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.wrapper, {
-            scrollY: false,
-            scrollX: true,
-            bounce: false,
-            deceleration: 0.0015,
-            preventDefault: false,
-          })
+          this.scroll = new BScroll(this.$refs.wrapper, this.scrollConfig)
         } else {
           this.scroll.refresh()
         }
@@ -71,6 +87,7 @@ $left: 15px
     line-height: $title-font-size * 1.5
 
 .scroll-wrapper
+  overflow: hidden
   .scroll-cards
     padding-left: $left
     // display: flex

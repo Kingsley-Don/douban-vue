@@ -2,7 +2,8 @@
 #app
   router-view(name="bar")
   transition.page(name="fade" mode="out-in")
-    router-view
+    keep-alive
+      router-view
 </template>
 
 <script>

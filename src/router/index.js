@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/views/Home'
 import InTheaters from '@/views/InTheaters'
+import comingSoon from '@/views/comingSoon'
 import Subject from '@/views/Subject'
 import AppBar from '@/components/AppBar'
 import ErrorPage from '@/views/Error'
@@ -26,9 +27,17 @@ export default new Router({
     },
     {
       path: '/movie/in-theaters',
-      name: 'in-theaters',
+      name: 'inTheaters',
       components: {
         default: InTheaters,
+        bar: AppBar,
+      }
+    },
+    {
+      path: '/movie/coming-soon',
+      name: 'comingSoon',
+      components: {
+        default: comingSoon,
         bar: AppBar,
       }
     },
