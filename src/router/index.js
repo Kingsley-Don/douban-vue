@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home'
-import InTheaters from '@/views/InTheaters'
-import comingSoon from '@/views/comingSoon'
+import SmallList from '@/views/SmallList'
 import Subject from '@/views/Subject'
 import AppBar from '@/components/AppBar'
 import ErrorPage from '@/views/Error'
@@ -29,7 +28,7 @@ export default new Router({
       path: '/movie/in-theaters',
       name: 'inTheaters',
       components: {
-        default: InTheaters,
+        default: SmallList,
         bar: AppBar,
       }
     },
@@ -37,7 +36,7 @@ export default new Router({
       path: '/movie/coming-soon',
       name: 'comingSoon',
       components: {
-        default: comingSoon,
+        default: SmallList,
         bar: AppBar,
       }
     },

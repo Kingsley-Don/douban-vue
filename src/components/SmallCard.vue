@@ -6,14 +6,14 @@
   .card-info
     p.title
       | {{ subject.title }}
-    p.subtitle(v-if="!date")
+    p.subtitle(v-if="showDate")
+      | {{ subject.mainland_pubdate }}
+    p.subtitle(v-else)
       mu-icon(
         v-if="subject.rating.average !== 0"
         value="star"
       )
       |  {{ subject.rating.average | rating }}
-    p.subtitle(v-else)
-      | {{ subject.mainland_pubdate }}
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
       },
       required: false
     },
-    date: {
+    showDate: {
       type: Boolean,
       default: false
     }

@@ -18,6 +18,7 @@ import * as types from '@/store/types'
 import XScroll from '@/components/XScroll'
 
 export default {
+  name: 'home',
   computed: {
     inTheaters() {
       return {

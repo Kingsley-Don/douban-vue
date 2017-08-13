@@ -10,7 +10,7 @@
         v-for="(subject, index) in subjects"
         :subject="subject"
         :key="index"
-        :date="date"
+        :showDate="showDate"
       )
 </template>
 
@@ -41,7 +41,7 @@ export default {
     }
   },
   computed: {
-    date() {
+    showDate() {
       if (this.listName === 'comingSoon') {
         return true
       }

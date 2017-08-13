@@ -2,7 +2,7 @@
 #app
   router-view(name="bar")
   transition.page(name="fade" mode="out-in")
-    keep-alive
+    keep-alive(include="home")
       router-view
 </template>
 
@@ -38,6 +38,4 @@ export default {
   left: 0
   width: 100%
   overflow: hidden
-
-
 </style>
