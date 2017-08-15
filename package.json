@@ -16,7 +16,6 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "axios": "^0.16.2",
-    "better-scroll": "^0.4.0",
     "lodash": "^4.17.4",
     "muse-ui": "^2.1.0",
     "vue": "^2.3.3",

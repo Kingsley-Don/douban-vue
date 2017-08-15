@@ -34,10 +34,8 @@ import Rating from '@/components/Rating'
 
 export default {
   name: 'movie-info',
-
   data() {
     return {
-      movie: this.$_.merge(this.$route.params.movie, { photos: [], countries: []}),
       hasPhotos: false
     }
   },
@@ -45,23 +43,8 @@ export default {
   components: { Rating },
 
   methods: {
-    getDetail() {
-      this.$axios
-        .get('/api/movie/subject/' + this.$route.params.id)
-        .then(response => {
-          // const IMG = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl='
-          this.$_.merge(this.movie, response.data)
-        })
-        .catch(error => {
-          this.$router.push({
-            name: 'error',
-            params: { errorCode: error.response.status }
-          })
-        })
-    }
-  },
 
-  created() { this.getDetail() }
+  },
 }
 </script>
 

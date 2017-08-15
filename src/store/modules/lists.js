@@ -19,7 +19,7 @@ const getters = {
 }
 
 const mutations = {
-  [types.GET_MOVIES](state, payload) {
+  [types.GET_SUBJECTS](state, payload) {
     state[payload.name].subjects = state[payload.name].subjects.concat(payload.subjects)
     state[payload.name].count = state[payload.name].subjects.length
     state[payload.name].total = payload.total
@@ -27,9 +27,9 @@ const mutations = {
 }
 
 const actions = {
-  [types.GET_MOVIES](context, payload) {
+  [types.GET_SUBJECTS](context, payload) {
     api.getMovies(payload.name, payload.start, payload.count)
-      .then(data => context.commit(types.GET_MOVIES, {
+      .then(data => context.commit(types.GET_SUBJECTS, {
         name: payload.name,
         subjects: data.subjects,
         total: data.total

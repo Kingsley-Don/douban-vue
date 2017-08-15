@@ -1,10 +1,11 @@
 <template lang="pug">
-.small-list-infinite
+.small-list-infinite.page
+  AppBar(
+    :title="title"
+  )
   .small-list
     small-card(
       v-for="(subject, index) in subjects"
-      :class="{ 'animated fadeInUp': index % 18 / 3 < 4}"
-      :style="{ 'animation-delay': 0.2 + parseInt(index % 18 / 3) * 0.07 + 's' }"
       :subject="subject"
       :showDate="showDate"
       :key="index"
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import AppBar from '@/components/AppBar'
 import SmallCard from '@/components/SmallCard'
 import { mapState } from 'vuex'
 import * as types from '@/store/types'
@@ -40,6 +42,13 @@ export default {
       }
       return false
     },
+    title() {
+      if (this.listName === 'comingSoon') {
+        return '即将上映'
+      } else if (this.listName === 'inTheaters') {
+        return '正在热映'
+      }
+    },
     ...mapState({
       subjects (state) {
         return state.lists[this.listName].subjects
@@ -51,12 +60,11 @@ export default {
         return state.lists[this.listName].total
       }
     })
-
   },
   methods: {
     loadMore() {
       this.loading = true
-      this.$store.dispatch(types.GET_MOVIES, {
+      this.$store.dispatch(types.GET_SUBJECTS, {
         name: this.listName,
         start: this.count,
         count: 18
@@ -75,6 +83,7 @@ export default {
     }
   },
   components: {
+    AppBar,
     SmallCard
   },
   created() {
@@ -93,11 +102,11 @@ export default {
 $columns: 3
 $grid-gap: 10px
 
-.small-list-infinite
-  padding-top: 56px
-  width: 100vw
-  height: 100vh
-  overflow: auto
+// .small-list-infinite
+//   padding-top: 56px
+//   width: 100vw
+//   height: 100vh
+//   overflow: auto
 
 .small-list
   padding: $grid-gap

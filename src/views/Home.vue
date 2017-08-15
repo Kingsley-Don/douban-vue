@@ -1,20 +1,26 @@
 <template lang="pug">
-#movie-home
-  x-scroll(
-    title="正在热映"
-    listName="inTheaters"
-    :subjects="inTheaters.subjects"
+.page
+  AppBar(
+    title="？？？"
+    icon="menu"
   )
-  x-scroll(
-    title="即将上映"
-    listName="comingSoon"
-    :subjects="comingSoon.subjects"
-  )
+  #movie-home
+    x-scroll(
+      title="正在热映"
+      listName="inTheaters"
+      :subjects="inTheaters.subjects"
+    )
+    x-scroll(
+      title="即将上映"
+      listName="comingSoon"
+      :subjects="comingSoon.subjects"
+    )
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import * as types from '@/store/types'
+import AppBar from '@/components/AppBar'
 import XScroll from '@/components/XScroll'
 
 export default {
@@ -38,7 +44,7 @@ export default {
   methods: {
     updateList(list) {
       if (list.count === 0){
-        this.$store.dispatch(types.GET_MOVIES, {
+        this.$store.dispatch(types.GET_SUBJECTS, {
           name: list.name,
           start: list.count,
           count: 18
@@ -47,6 +53,7 @@ export default {
     }
   },
   components: {
+    AppBar,
     XScroll
   },
   created() {
@@ -57,6 +64,6 @@ export default {
 </script>
 
 <style lang="sass">
-#movie-home
-  margin-top: 56px
+// #movie-home
+//   padding-top: 56px
 </style>

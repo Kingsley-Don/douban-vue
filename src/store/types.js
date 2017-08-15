@@ -1,2 +1,2 @@
-export const GET_MOVIES = 'GET_MOVIES'
+export const GET_SUBJECTS = 'GET_SUBJECTS'
 export const UPDATE_SUBJECT = 'UPDATE_SUBJECT'

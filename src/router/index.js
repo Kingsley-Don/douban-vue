@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import SmallList from '@/views/SmallList'
 import Subject from '@/views/Subject'
-import AppBar from '@/components/AppBar'
 import ErrorPage from '@/views/Error'
 
 Vue.use(Router)
@@ -19,42 +18,27 @@ export default new Router({
     {
       path: '/movie',
       name: 'home',
-      components: {
-        default: Home,
-        bar: AppBar,
-      }
+      component: Home
     },
     {
       path: '/movie/in-theaters',
       name: 'inTheaters',
-      components: {
-        default: SmallList,
-        bar: AppBar,
-      }
+      component: SmallList
     },
     {
       path: '/movie/coming-soon',
       name: 'comingSoon',
-      components: {
-        default: SmallList,
-        bar: AppBar,
-      }
+      component: SmallList
     },
     {
       path: '/movie/:id',
       name: 'subject',
-      components: {
-        default: Subject,
-        bar: AppBar,
-      }
+      component: Subject
     },
     {
       path: '/error',
       name: 'error',
-      components: {
-        default: ErrorPage,
-        bar: AppBar,
-      }
+      component: ErrorPage
     },
     {
       path: '/*',

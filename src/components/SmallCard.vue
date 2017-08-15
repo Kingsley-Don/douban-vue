@@ -23,6 +23,7 @@ export default {
     subject: {
       type: Object,
       default: {
+        id: 0,
         title: '',
         rating: {
           average: 0
@@ -32,7 +33,7 @@ export default {
         },
         mainland_pubdate: ''
       },
-      required: false
+      required: true
     },
     showDate: {
       type: Boolean,
@@ -41,7 +42,7 @@ export default {
   },
   methods: {
     toSubject() {
-      if (this.movie.id !== 0) {
+      if (this.subject.id !== 0) {
         this.$router.push({
           name: 'subject',
           params: {
@@ -76,9 +77,11 @@ $card-radius: 2px
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
+      font-size: 14px
 
     .subtitle
       color: #ccc
+      font-size: 14px
       i
         color: rgb(233, 176, 78)
         font-size: 15px

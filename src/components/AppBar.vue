@@ -17,33 +17,26 @@ mu-appbar.bar(
 
 <script>
 export default {
+  name: 'AppBar',
+  props: {
+    icon: {
+      type: String,
+      default: 'arrow_back'
+    },
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   computed: {
-    title() {
-      switch (this.$route.name) {
-        case 'home':
-          return '? ? ?'
-        case 'inTheaters':
-          return '正在热映'
-        case 'comingSoon':
-          return '即将上映'
-        default:
-          return ''
-      }
-    },
-    icon() {
+    isHome() {
       if (this.$route.name === 'home') {
-        return 'menu'
-      }
-      return 'arrow_back'
-    },
-    isMovie() {
-      if (this.$route.name === 'subject') {
         return true
       }
       return false
     },
-    isHome() {
-      if (this.$route.name === 'home') {
+    isMovie() {
+      if (this.$route.name === 'subject') {
         return true
       }
       return false
@@ -59,11 +52,6 @@ export default {
 
     },
   },
-  mounted() {
-  },
-  beforeRouteLeave (to, from, next) {
-    next()
-  },
 }
 </script>
 
@@ -78,7 +66,7 @@ export default {
   background-color: transparent
   box-shadow: 0 1px 6px transparent, 0 1px 4px transparent
 
-.home-bar .mu-appbar-title span::after
-  content: ' 电影'
-  color: orange
+// .home-bar .mu-appbar-title span::after
+//   content: ' 电影'
+//   color: orange
 </style>
