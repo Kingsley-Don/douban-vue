@@ -46,7 +46,8 @@ export default {
         this.$router.push({
           name: 'subject',
           params: {
-            id: this.subject.id
+            id: this.subject.id,
+            subject: this.subject
           },
         })
       }

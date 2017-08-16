@@ -1,96 +1,126 @@
 <template lang="pug">
-#movie-info
-  .no-photos(v-if="!hasPhotos") 暂无剧照
-  .movie-photos(v-else)
-    .movie-photo(
-      v-for="(photo, index) in movie.photos",
-      :key="index",
-      :style="{ 'background-image': 'url(' + photo.image + ')' }"
+.page.subject-page
+  AppBar
+  #subject
+    .subject-photo(
+      :style="{ 'background-image': 'url(' + subject.photos[0].image + ')' }"
     )
+    .subject-card
+      .subject-basic
+        .subject-image
+          img(:src="subject.images.large", :alt="subject.title")
+        .subject-title
+          h1
+            b {{ subject.title }}
+          p(v-if="subject.title !== subject.original_title && subject.original_title")
+            | {{ subject.original_title }}
+          p
+            | {{ subject.year }}
+            | {{ subject.countries | arr2string }}
+          p
+            | {{ subject.durations | arr2string }}
+            | {{ subject.genres | arr2string }}
 
-  .movie-content-box
-    .movie-basic
-      .movie-image
-        img(:src="movie.images.large", :alt="movie.title")
-      .movie-title-info
-        p.main-title
-          b {{ movie.title }}
-        p(v-if="movie.title !== movie.original_title && movie.original_title !== ''")
-          | {{ movie.original_title }}
-        p
-          //- | {{ movie.year + '   ' + movie.countries.join(' / ') }}
-          br
-          | {{ movie.durations.join(' / ') + '   ' + movie.genres.join(' / ') }}
+      .subject-data
+        rating.subject-star(:starsData="subject.rating.stars")
 
-    .movie-data
-      rating.movie-star(:starsData="movie.rating.stars")
-
-    .movie-summary
-      p {{ movie.summary }}
+      .subject-summary
+        p {{ subject.summary }}
 </template>
 
 <script>
+import AppBar from '@/components/AppBar'
 import Rating from '@/components/Rating'
+import * as api from '@/api/api'
+import _ from 'lodash'
 
 export default {
-  name: 'movie-info',
+  name: 'subject',
   data() {
     return {
-      hasPhotos: false
+      subject: {
+        id: 0,
+        title: '',
+        original_title: '',
+        rating: {
+          average: 7.5,
+          details: {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+          },
+          stars: '00'
+        },
+        images: {
+          large: ''
+        },
+        summary: '',
+        photos: [{ image: '' }]
+      }
     }
   },
-
-  components: { Rating },
-
-  methods: {
-
+  components: {
+    Rating,
+    AppBar
   },
+  methods: {
+    preLoad() {
+      if (this.$route.params.subject) {
+        _.merge(this.subject, this.$route.params.subject)
+      }
+    },
+    loadMore() {
+      api.getSubject(this.$route.params.id)
+        .then(res => {
+          _.merge(this.subject, res)
+        })
+    }
+  },
+  created() {
+    this.preLoad()
+    this.loadMore()
+  }
 }
 </script>
 
 <style lang="sass">
 $photo-height: 52vw
-$poster-width: 110px
-$basic-to-top: 20px
-$slide-margin: 20px
+$image-width: 110px
+$card-padding: 20px
 $data-border: 1px solid #ddd
 
-.no-photos
-  text-align: center
-  background-color: grey
-  width: 100%
-  font-size: 30px
-  color: white
-  line-height: $photo-height
+// .no-photos
+//   text-align: center
+//   background-color: grey
+//   width: 100%
+//   font-size: 30px
+//   color: white
+//   line-height: $photo-height
+//   height: $photo-height
+//   position: relative
+//   z-index: 1
+
+.subject-photo
   height: $photo-height
-  position: relative
-  z-index: 1
+  box-shadow: inset 0 110px 100px -100px black
+  background-color: #888
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
 
-
-.movie-photos
-  height: $photo-height
-  .swiper-pagination
-    text-align: right
-    padding-right: 20px
-    .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)
-      opacity: 0.4
-  .movie-photo
-    box-shadow: inset 0 110px 100px -100px black
-    background-size: cover
-    background-repeat: no-repeat
-    background-position: center
-
-.movie-content-box
-  padding: 0 $slide-margin
+.subject-card
+  padding: 0 $card-padding
   position: relative
   z-index: 99
 
-.movie-basic
+.subject-basic
   display: flex
-  .movie-image
-    margin-top: -$basic-to-top
-    width: 30vw
-    height: calc(30vw * 1.36)
+  .subject-image
+    margin-top: -10px
+    width: $image-width
+    height: $image-width * 1.36
     overflow: hidden
     z-index: 9
     pointer-events: none
@@ -98,31 +128,27 @@ $data-border: 1px solid #ddd
     img
       width: 100%
 
-  .movie-title-info
+  .subject-title
     flex: 1
-    padding: $slide-margin - 4px 0 0 $slide-margin - 5px
+    padding-left: $card-padding - 5px
     overflow: hidden
-    p.main-title
+    h1
       font-size: 22px
-      padding-bottom: 4px
-      line-height: 1.4
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
       color: #fff
     p
       color: #ccc
-      text-overflow: ellipsis
-      white-space: pre
       font-size: 14px
 
-.movie-data
+.subject-data
   border-top: $data-border
   border-bottom: $data-border
-  margin: $slide-margin + 5px 0
-  padding: $slide-margin 0
-  // .movie-rate
-  //   .movie-score
+  margin: $card-padding + 5px 0
+  padding: $card-padding 0
+  // .subject-rate
+  //   .subject-score
   //     text-align: center
   //     color: orange
   //     font-size: 35px
@@ -132,25 +158,25 @@ $data-border: 1px solid #ddd
   //       color: grey
   //       font-size: 18px
   //       // line-height: 22px
-  //   .movie-star
+  //   .subject-star
   //     text-align: center
   //     height: 16px
   //     i
   //       font-size: 16px
 
-  // .movie-number-box
+  // .subject-number-box
   //   flex: 1
   //   text-align: center
   //   color: #666
-  //   .movie-number
+  //   .subject-number
   //     font-size: 30px
   //     line-height: 44px
-  //   .movie-number-note
+  //   .subject-number-note
   //     font-size: 12px
   //     line-height: 16px
 
-.movie-summary
-  padding: 0 $slide-margin
+.subject-summary
+  padding: 0 $card-padding
   text-align: justify
   font-size: 15px
 </style>

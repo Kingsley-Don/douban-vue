@@ -1,5 +1,5 @@
 <template lang="pug">
-.small-list-infinite.page
+.page
   AppBar(
     :title="title"
   )
@@ -101,12 +101,6 @@ export default {
 <style lang="sass">
 $columns: 3
 $grid-gap: 10px
-
-// .small-list-infinite
-//   padding-top: 56px
-//   width: 100vw
-//   height: 100vh
-//   overflow: auto
 
 .small-list
   padding: $grid-gap

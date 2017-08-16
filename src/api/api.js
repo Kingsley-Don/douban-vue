@@ -10,5 +10,5 @@ export function getMovies(name, start, count) {
 }
 
 export function getSubject(id) {
-  return get('subject/${id}')
+  return get('subject/' + id)
 }
