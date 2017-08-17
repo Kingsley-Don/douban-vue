@@ -2,27 +2,21 @@
 .page.subject-page
   AppBar
   #subject
-    .subject-photo(
-      :style="{ 'background-image': 'url(' + subject.photos[0].image + ')' }"
+    .subject-photo.bg-image(
+      :style="photo"
     )
     .subject-card
       .subject-basic
-        .subject-image
-          img(:src="subject.images.large", :alt="subject.title")
+        .subject-image.bg-image(:style="image")
         .subject-title
-          h1
-            b {{ subject.title }}
-          p(v-if="subject.title !== subject.original_title && subject.original_title")
+          h1.text-overflow {{ subject.title }}
+          p.text-overflow(v-if="showOriginalTitle")
             | {{ subject.original_title }}
-          p
-            | {{ subject.year }}
-            | {{ subject.countries | arr2string }}
-          p
-            | {{ subject.durations | arr2string }}
-            | {{ subject.genres | arr2string }}
+          p {{ subject.year }}  {{ subject.countries | a2s }}
+          p {{ subject.durations | a2s }}  {{ subject.genres | a2s }}
 
-      .subject-data
-        rating.subject-star(:starsData="subject.rating.stars")
+      .subject-rating
+        rating(:rating="subject.rating")
 
       .subject-summary
         p {{ subject.summary }}
@@ -43,7 +37,7 @@ export default {
         title: '',
         original_title: '',
         rating: {
-          average: 7.5,
+          average: 0,
           details: {
             1: 0,
             2: 0,
@@ -57,13 +51,33 @@ export default {
           large: ''
         },
         summary: '',
-        photos: [{ image: '' }]
+        photos: [
+          {
+            image: ''
+          }
+        ]
       }
     }
   },
   components: {
     Rating,
     AppBar
+  },
+  computed: {
+    photo() {
+      return {
+        backgroundImage: `url(${this.subject.photos[0].image})`
+      }
+    },
+    image() {
+      return {
+        backgroundImage: `url(${this.subject.images.large})`
+      }
+    },
+    showOriginalTitle() {
+      return this.subject.title !== this.subject.original_title
+        && this.subject.original_title
+    }
   },
   methods: {
     preLoad() {
@@ -91,24 +105,10 @@ $image-width: 110px
 $card-padding: 20px
 $data-border: 1px solid #ddd
 
-// .no-photos
-//   text-align: center
-//   background-color: grey
-//   width: 100%
-//   font-size: 30px
-//   color: white
-//   line-height: $photo-height
-//   height: $photo-height
-//   position: relative
-//   z-index: 1
-
 .subject-photo
   height: $photo-height
   box-shadow: inset 0 110px 100px -100px black
-  background-color: #888
-  background-size: cover
-  background-repeat: no-repeat
-  background-position: center
+  background-color: #222
 
 .subject-card
   padding: 0 $card-padding
@@ -122,58 +122,25 @@ $data-border: 1px solid #ddd
     width: $image-width
     height: $image-width * 1.36
     overflow: hidden
-    z-index: 9
     pointer-events: none
-    font-size: 0
-    img
-      width: 100%
-
   .subject-title
     flex: 1
-    padding-left: $card-padding - 5px
+    padding-left: $card-padding
     overflow: hidden
     h1
       font-size: 22px
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
       color: #fff
     p
       color: #ccc
       font-size: 14px
+      &:not(.text-overflow)
+        white-space: pre-wrap
 
-.subject-data
+.subject-rating
   border-top: $data-border
   border-bottom: $data-border
   margin: $card-padding + 5px 0
   padding: $card-padding 0
-  // .subject-rate
-  //   .subject-score
-  //     text-align: center
-  //     color: orange
-  //     font-size: 35px
-  //     // padding-bottom: 6px
-  //     line-height: 44px
-  //     &.no-score
-  //       color: grey
-  //       font-size: 18px
-  //       // line-height: 22px
-  //   .subject-star
-  //     text-align: center
-  //     height: 16px
-  //     i
-  //       font-size: 16px
-
-  // .subject-number-box
-  //   flex: 1
-  //   text-align: center
-  //   color: #666
-  //   .subject-number
-  //     font-size: 30px
-  //     line-height: 44px
-  //   .subject-number-note
-  //     font-size: 12px
-  //     line-height: 16px
 
 .subject-summary
   padding: 0 $card-padding

@@ -30,16 +30,10 @@ export default {
   },
   computed: {
     isHome() {
-      if (this.$route.name === 'home') {
-        return true
-      }
-      return false
+      return this.$route.name === 'home'
     },
     isMovie() {
-      if (this.$route.name === 'subject') {
-        return true
-      }
-      return false
+      return this.$route.name === 'subject'
     }
   },
   methods: {

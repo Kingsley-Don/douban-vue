@@ -11,7 +11,6 @@ export default {
   data() {
     return {
       isBack: false,
-      fromRoute: this.$route.name
     }
   },
   computed: {
@@ -24,16 +23,13 @@ export default {
   },
   watch: {
     '$route'(to, from) {
-      if (
-        (to.name === this.fromRoute ||
-        to.name === 'home') &&
-        from.name !== 'home'
+      if (to.name === 'home'
+          || from.name === 'subject'
       ) {
         this.isBack = true
       } else {
         this.isBack = false
       }
-      this.fromRoute = from.name
     }
   }
 }
@@ -78,4 +74,14 @@ $duration: 0.4s
   background-color: #222
   &:not(.subject-page)
     padding-top: 56px
+
+.bg-image
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
+
+.text-overflow
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 </style>
