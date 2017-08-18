@@ -111,6 +111,7 @@ $score-font-size: 50px
     align-self: center
     .detail
       height: $score-font-size * 0.75 / 5
+      min-width: 1px
       &:nth-child(1)
         background-color: #43a047
       &:nth-child(2)
