@@ -103,7 +103,7 @@ export default {
 $photo-height: 52vw
 $image-width: 110px
 $card-padding: 20px
-$data-border: 1px solid #ddd
+$data-border: 1px solid #666
 
 .subject-photo
   height: $photo-height
@@ -140,10 +140,11 @@ $data-border: 1px solid #ddd
   border-top: $data-border
   border-bottom: $data-border
   margin: $card-padding + 5px 0
-  padding: $card-padding 0
+  padding: $card-padding
 
 .subject-summary
-  padding: 0 $card-padding
+  // padding: 0 $card-padding
+  color: #ccc
   text-align: justify
   font-size: 15px
 </style>
