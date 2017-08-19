@@ -10,13 +10,13 @@
           :value="star"
           :key="index"
         )
-      .rating-count {{ total + ' ' }}
+      .rating-count {{ count + ' ' }}
         mu-icon(value="people")
   .rating-details
-      .detail(
-        v-for="detail in details"
-        :style="{ 'width': `${parseInt(detail / maxDetail * 100)}%` }"
-      )
+    .detail(
+      v-for="(detail, index) in details"
+      :style="{ 'width': `${parseInt(detail / maxDetail * 100)}%` }"
+    )
 </template>
 
 <script>
@@ -25,23 +25,7 @@ export default {
   props: {
     rating: {
       type: Object,
-      default: {
-        average: 0,
-        details: {
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0
-        },
-        stars: '00'
-      },
       required: true
-    }
-  },
-  data() {
-    return {
-
     }
   },
   computed: {
@@ -68,18 +52,16 @@ export default {
     maxDetail() {
       return Math.max(...this.details)
     },
-    total() {
+    count() {
       return this.details.reduce((sum, value) => sum + value, 0)
     }
-  },
-  methods: {
-
   },
 }
 </script>
 
 <style lang="sass">
 $score-font-size: 50px
+$detail-colors: #43a047 #8bc34a #fff176 #ffb74d #ff5722
 
 .inline-block
   display: inline-block
@@ -88,15 +70,16 @@ $score-font-size: 50px
   display: flex
   align-items: baseline
   .rating-score
-    font-size: $score-font-size
+    font:
+      size: $score-font-size
+      weight: lighter
     line-height: 1
-    font-weight: lighter
   .rating-middle
     margin-left: 5px
     .rating-stars
       font-size: 0
       i
-        color: rgb(233, 176, 78)
+        color: $star-color
         font-size: 16px
         line-height: 1
     .rating-count
@@ -112,15 +95,8 @@ $score-font-size: 50px
     .detail
       height: $score-font-size * 0.75 / 5
       min-width: 1px
-      &:nth-child(1)
-        background-color: #43a047
-      &:nth-child(2)
-        background-color: #8bc34a
-      &:nth-child(3)
-        background-color: #fff176
-      &:nth-child(4)
-        background-color: #ffb74d
-      &:nth-child(5)
-        background-color: #ff5722
-
+      @for $i from 1 through length($detail-colors)
+        $color: nth($detail-colors, $i)
+        &:nth-child(#{$i})
+          background-color: $color
 </style>

@@ -51,12 +51,12 @@
         span(v-else) 暂无评分
       .subject-summary(
         v-if="subject.summary"
-        :style="summaryHeight"
+        :class="{ 'closed-summary': !isOpen }"
       )
-        p(ref="summary") {{ subject.summary }}
+        p {{ subject.summary }}
         a.button(
           :class="{ 'closed-button': !isOpen }"
-          @click="toggleSummary"
+          @click="isOpen = isOpen ? false : true"
         )
           | {{ isOpen ? '收起' : '展开' }}
       .subject-reviews
@@ -125,14 +125,6 @@ export default {
         rottenTomatoes: `https://www.rottentomatoes.com/search/?search=${this.subject.original_title}`,
         metacritic: `http://www.metacritic.com/search/all/${this.subject.original_title}/results`
       }
-    },
-    summaryHeight() {
-      if (this.isOpen) {
-        return {
-          height: `${this.$refs.summary.clientHeight + 21}px`
-        }
-      }
-      return {}
     }
   },
   methods: {
@@ -146,9 +138,6 @@ export default {
         .then(res => {
           _.merge(this.subject, res)
         })
-    },
-    toggleSummary() {
-      this.isOpen = this.isOpen ? false : true
     }
   },
   created() {
@@ -162,27 +151,27 @@ export default {
 $photo-height: 52%
 $image-width: 30%
 $card-padding: 20px
-$data-border: 1px solid #666
-$summary-duration: 0.3s
+$border-line: 1px solid #444
 
 .hidden
   display: none
 
 .subject-photo
-  animation-delay: 0.1s
-  animation-duration: 0.4s
+  animation:
+    delay: 0.1s
+    duration: 0.4s
   padding-top: $photo-height
   box-shadow: inset 0 110px 100px -100px black
   background-color: #222
 
 .subject-card
-  padding: $card-padding
   position: relative
   z-index: 99
 
 .subject-basic
   display: flex
   position: relative
+  margin: $card-padding $card-padding 0 $card-padding
   .menu
     position: absolute
     right: 0
@@ -194,33 +183,33 @@ $summary-duration: 0.3s
   .subject-image
     width: $image-width
     padding-top: $image-width * 1.4
-    overflow: hidden
-    pointer-events: none
   .subject-title
     flex: 1
-    padding-left: $card-padding
-    overflow: hidden
+    margin-left: $card-padding
     h1
-      font-size: 20px
-      font-weight: normal
+      font:
+        size: 20px
+        weight: normal
       line-height: 1
       margin: 0
       margin-bottom: 13px
-      color: #fff
     p
       color: #ccc
-      font-size: 14px
       white-space: pre-wrap
-      line-height: 1.4
       &.original-title
         line-height: 1.2
         margin-bottom: 4px
 
 .subject-rating
-  border-top: $data-border
-  border-bottom: $data-border
-  margin: $card-padding + 5px 0
-  padding: $card-padding 10% $card-padding 2%
+  border:
+    top: $border-line
+    bottom: $border-line
+  margin: $card-padding 0
+  padding:
+    top: $card-padding
+    right: calc(10% + #{$card-padding})
+    bottom: $card-padding
+    left: calc(2% + #{$card-padding})
   &.no-rating
     padding: $card-padding 0
     text-align: center
@@ -228,19 +217,17 @@ $summary-duration: 0.3s
     color: #ddd
 
 .subject-summary
+  margin: 0 $card-padding
   position: relative
   color: #ccc
   text-align: justify
   overflow: hidden
-  height: 42px
-  transition: height $summary-duration
+  &.closed-summary
+    height: 42px
   .button
-    position: absolute
-    left: 0
-    bottom: 0
-    transition-duration: $summary-duration
     &.closed-button
-      left: calc(100% - 68px)
+      position: absolute
+      right: 0
       bottom: 0
       padding-left: 40px
       background: linear-gradient(to left, #222, #222 50%, transparent)
