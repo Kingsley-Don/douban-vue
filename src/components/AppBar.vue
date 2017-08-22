@@ -61,7 +61,9 @@ export default {
   },
   methods: {
     iconClick() {
-      if (!this.isHome) {
+      if (this.isHome) {
+        this.$emit('toggle')
+      } else {
         this.$router.go(-1)
       }
     },

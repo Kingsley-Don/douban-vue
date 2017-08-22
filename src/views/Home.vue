@@ -1,8 +1,14 @@
 <template lang="pug">
 .page.home-page
+  mu-drawer(
+    :open="drawerOpen"
+    @close="toggleDrawer"
+    :docked="false"
+  )
   AppBar(
     title="？？？"
     icon="menu"
+    @toggle="toggleDrawer"
   )
   .chips-wrapper
     .chips
@@ -30,6 +36,11 @@ import XScroll from '@/components/XScroll'
 
 export default {
   name: 'home',
+  data () {
+    return {
+      drawerOpen: false
+    }
+  },
   computed: {
     inTheaters() {
       return {
@@ -55,6 +66,9 @@ export default {
           count: 18
         })
       }
+    },
+    toggleDrawer() {
+      this.drawerOpen ? this.drawerOpen = false : this.drawerOpen = true
     }
   },
   components: {
