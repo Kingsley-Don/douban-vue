@@ -1,64 +1,57 @@
 <template lang="pug">
 .page.subject-page
-  AppBar
+  AppBar(:scrollTop="scrollTop" :title="subject.title")
   #subject
     img.hidden(:src="subject.photos[0].image")
-    .subject-photo.bg-image(
+    .subject-photo(
       :style="photo"
       :class="{ 'animated fadeIn': subject.photos[0].image }"
     )
     .subject-card
       .subject-basic
-        .subject-image.bg-image(:style="image")
+        .subject-image(:style="image")
         .subject-title
           h1 {{ subject.title }}
           p.original-title(v-if="showOriginalTitle")
             | {{ subject.original_title }}
           p {{ subject.year }}  {{ subject.countries | a2s }}
-          p {{ subject.durations | a2s }}  {{ subject.genres | a2s }}
+          p {{ subject.durations[0] }}  {{ subject.genres | a2s }}
         mu-icon-menu.menu(icon="more_vert")
-          mu-menu-item(
-            title="豆瓣页面"
-            leftIcon="launch"
-            :href="subject.alt"
-          )
+          mu-menu-item(title="豆瓣页面" leftIcon="launch" :href="subject.alt")
           mu-divider
-          mu-menu-item(
-            title="以下不适用于中文"
-            leftIcon="warning"
-            :disabled="true"
-          )
-          mu-menu-item(
-            title="IMDb"
-            leftIcon="search"
-            :href="searchUrl.imdb"
-          )
-          mu-menu-item(
-            title="Rotten Tomatoes"
-            leftIcon="search"
-            :href="searchUrl.rottenTomatoes"
-          )
-          mu-menu-item(
-            title="Metacritic"
-            leftIcon="search"
-            :href="searchUrl.metacritic"
-          )
+          mu-menu-item(title="IMDb" leftIcon="search" :href="searchUrl.imdb")
+          mu-menu-item(title="Rotten Tomatoes" leftIcon="search" :href="searchUrl.rottenTomatoes")
+          mu-menu-item(title="Metacritic" leftIcon="search" :href="searchUrl.metacritic")
       .subject-rating(:class="{ 'no-rating': !subject.rating.average}")
         rating(
           v-if="subject.rating.average"
           :rating="subject.rating"
+          :count="subject.ratings_count"
         )
         span(v-else) 暂无评分
-      .subject-summary(
+      .subject-detail(
         v-if="subject.summary"
-        :class="{ 'closed-summary': !isOpen }"
+        :class="{ 'closed-detail': !isOpen }"
       )
-        p {{ subject.summary }}
-        a.button(
+        p.summary {{ subject.summary }}
+        .directors(v-if="subject.directors")
+          .detail-title 导演
+          p {{ subject.directors | name | a2s(', ') }}
+        .casts(v-if="subject.casts")
+          .detail-title 主演
+          p {{ subject.casts | name | a2s(', ') }}
+        .writers(v-if="subject.writers")
+          .detail-title 编剧
+          p {{ subject.writers | name | a2s(', ') }}
+        .languages(v-if="subject.languages")
+          .detail-title 语言
+          p {{ subject.languages | a2s(', ')}}
+
+      .more-button
+        a(
           :class="{ 'closed-button': !isOpen }"
           @click="isOpen = isOpen ? false : true"
-        )
-          | {{ isOpen ? '收起' : '展开' }}
+        ) {{ isOpen ? '收起' : '更多详情' }}
       .subject-reviews
 </template>
 
@@ -76,6 +69,7 @@ export default {
         id: 0,
         title: '',
         original_title: '',
+        durations: [],
         rating: {
           average: 0,
           details: {
@@ -87,6 +81,7 @@ export default {
           },
           stars: '00'
         },
+        ratings_count: 0,
         images: {
           large: ''
         },
@@ -97,7 +92,9 @@ export default {
           }
         ]
       },
-      isOpen: false
+      isOpen: false,
+      scrollTop: 0,
+      scroller: null
     }
   },
   components: {
@@ -107,7 +104,8 @@ export default {
   computed: {
     photo() {
       return {
-        backgroundImage: `url(${this.subject.photos[0].image})`
+        backgroundImage: `url(${this.subject.photos[0].image})`,
+        transform: `translate3d(0, ${this.scrollTop < 220 ? this.scrollTop / 2 : 110}px, 0)`
       }
     },
     image() {
@@ -138,11 +136,18 @@ export default {
         .then(res => {
           _.merge(this.subject, res)
         })
+    },
+    handleScroll() {
+      this.scrollTop = this.scroller.scrollTop
     }
   },
   created() {
     this.preLoad()
     this.loadMore()
+  },
+  mounted() {
+    this.scroller = this.$el
+    this.scroller.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -151,12 +156,13 @@ export default {
 $photo-height: 52%
 $image-width: 30%
 $card-padding: 20px
-$border-line: 1px solid #444
+$border-line: 1px solid #333
 
 .hidden
   display: none
 
 .subject-photo
+  +bg
   animation:
     delay: 0.1s
     duration: 0.4s
@@ -165,13 +171,14 @@ $border-line: 1px solid #444
   background-color: #222
 
 .subject-card
+  padding-top: $card-padding
   position: relative
-  z-index: 99
+  background-color: #111
 
 .subject-basic
   display: flex
   position: relative
-  margin: $card-padding $card-padding 0 $card-padding
+  margin: 0 $card-padding
   .menu
     position: absolute
     right: 0
@@ -181,6 +188,7 @@ $border-line: 1px solid #444
       height: initial
       width: initial
   .subject-image
+    +bg
     width: $image-width
     padding-top: $image-width * 1.4
   .subject-title
@@ -194,41 +202,65 @@ $border-line: 1px solid #444
       margin: 0
       margin-bottom: 13px
     p
-      color: #ccc
+      color: $text-color
       white-space: pre-wrap
       &.original-title
         line-height: 1.2
         margin-bottom: 4px
 
+.mu-popover
+  background-color: #222
+
 .subject-rating
   border:
     top: $border-line
     bottom: $border-line
-  margin: $card-padding 0
+  margin: $card-padding
   padding:
     top: $card-padding
-    right: calc(10% + #{$card-padding})
+    right: 10%
     bottom: $card-padding
-    left: calc(2% + #{$card-padding})
+    left: 2%
   &.no-rating
     padding: $card-padding 0
     text-align: center
     font-size: 16px
-    color: #ddd
+    color: $text-color
 
-.subject-summary
+.subject-detail
   margin: 0 $card-padding
   position: relative
-  color: #ccc
-  text-align: justify
   overflow: hidden
-  &.closed-summary
-    height: 42px
-  .button
-    &.closed-button
+  &.closed-detail
+    height: 3 * 21px
+    position: relative
+    &::after
+      content: ''
       position: absolute
-      right: 0
       bottom: 0
-      padding-left: 40px
-      background: linear-gradient(to left, #222, #222 50%, transparent)
+      right: 0
+      width: 54px
+      height: 21px
+      background: linear-gradient(to right, rgba(17, 17, 17, 0.1), rgba(17, 17, 17, 0.9))
+  .detail-title
+    margin:
+      top: 12px
+      bottom: 4px
+
+  p
+    color: $text-color
+    text-align: justify
+    &:not(.summary)
+      font-size: 12px
+      line-height: 1.3
+    &.summary
+      border-bottom: $border-line
+      padding-bottom: $card-padding
+
+.more-button
+  text-align: center
+  line-height: 3
+  font-size: 16px
+  margin: 0 $card-padding
+  border-bottom: $border-line
 </style>

@@ -10,7 +10,8 @@
           :value="star"
           :key="index"
         )
-      .rating-count {{ count + ' ' }}
+      .rating-count {{ count | mili }}
+        | 
         mu-icon(value="people")
   .rating-details
     .detail(
@@ -25,6 +26,10 @@ export default {
   props: {
     rating: {
       type: Object,
+      required: true
+    },
+    count: {
+      type: Number,
       required: true
     }
   },
@@ -51,9 +56,6 @@ export default {
     },
     maxDetail() {
       return Math.max(...this.details)
-    },
-    count() {
-      return this.details.reduce((sum, value) => sum + value, 0)
     }
   },
 }

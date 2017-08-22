@@ -71,17 +71,20 @@ $duration: 0.4s
   width: 100vw
   height: 100vh
   overflow: auto
-  background-color: #222
+  background-color: #111
   &:not(.subject-page)
-    padding-top: 56px
+    padding-top: $bar-height
+  &.home-page
+    z-index: 2
+  &.list-page
+    z-index: 3
+  &.subject-page
+    z-index: 4
 
-.bg-image
-  background-size: cover
-  background-repeat: no-repeat
-  background-position: center
+.mu-appbar
+  color: white
+  background-color: #222
 
-.text-overflow
-  overflow: hidden
-  text-overflow: ellipsis
-  white-space: nowrap
+.mu-paper
+  background-color: #222
 </style>

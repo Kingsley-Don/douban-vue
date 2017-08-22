@@ -1,12 +1,11 @@
 <template lang="pug">
-.x-scroll
+mu-paper
   .header
     .title {{ title }}
-    router-link(:to="{ name: listName }")
-      .more 更多
+    router-link(:to="{ name: listName }") 更多
   .scroll-wrapper(ref="wrapper")
     .scroll-small-cards
-      small-card(
+      small-card.scroll-small-card(
         v-for="(subject, index) in subjects"
         :subject="subject"
         :key="index"
@@ -29,10 +28,7 @@ export default {
   },
   computed: {
     showDate() {
-      if (this.listName === 'comingSoon') {
-        return true
-      }
-      return false
+      return this.listName === 'comingSoon'
     }
   },
   components: {
@@ -42,42 +38,31 @@ export default {
 </script>
 
 <style lang="sass">
-$title-font-size: 22px
-$card-width: 110px
-$card-margin: 7px
-$page-padding: 15px
+$card-width: 25vw
 
 .header
   display: flex
-  padding: 15px $page-padding
-
+  align-items: center
+  padding: $gap
   .title
     flex: 1
-    font-size: 22px
-
-  .more
-    line-height: $title-font-size * 1.5
+    font-size: 16px
+    line-height: 1
 
 .scroll-wrapper
   overflow-x: scroll
   overflow-y: hidden
-  width: 100%
   &::-webkit-scrollbar
     display: none
-
   .scroll-small-cards
-    padding: 0 $page-padding
+    padding: 0 $gap
     white-space: nowrap
     width: fit-content
     font-size: 0
-
-    .small-card
+    .scroll-small-card
       display: inline-block
       width: $card-width
-      margin-right: $card-margin
+      margin-right: $gap
       &:last-child
         margin-right: 0
-
-      .card-poster
-        height: $card-width * 1.35
 </style>

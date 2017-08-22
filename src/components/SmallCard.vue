@@ -1,9 +1,9 @@
 <template lang="pug">
-.small-card.mu-paper(@click="toSubject()")
-  .card-poster(
+.small-card(@click="toSubject()")
+  .card-image(
     :style="{ 'background-image': 'url(' + subject.images.large + ')' }"
   )
-  .card-info
+  .card-title
     p.title
       | {{ subject.title }}
     p.subtitle(v-if="showDate")
@@ -57,34 +57,28 @@ export default {
 </script>
 
 <style lang="sass">
-$title-alpha: 0.5
-$card-radius: 2px
+
 
 .small-card
   overflow: hidden
-  border-radius: $card-radius
+  .card-image
+    +bg
+    padding-top: 140%
 
-  .card-poster
-    background-size: cover
-    background-repeat: no-repeat
-
-  .card-info
-    padding: 9px 7px
+  .card-title
+    padding: 8px 0
     overflow: hidden
 
     .title
-      padding-bottom: 3px
       color: white
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
-      font-size: 14px
+      font-size: $text-size
+      +text-overflow
 
     .subtitle
-      color: #ccc
-      font-size: 14px
+      color: $text-color
+      font-size: $text-size
       i
-        color: rgb(233, 176, 78)
+        color: $star-color
         font-size: 15px
         vertical-align: text-top
 </style>

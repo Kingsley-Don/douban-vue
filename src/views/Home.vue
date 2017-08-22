@@ -1,20 +1,25 @@
 <template lang="pug">
-.page
+.page.home-page
   AppBar(
     title="？？？"
     icon="menu"
   )
-  #movie-home
-    x-scroll(
-      title="正在热映"
-      listName="inTheaters"
-      :subjects="inTheaters.subjects"
-    )
-    x-scroll(
-      title="即将上映"
-      listName="comingSoon"
-      :subjects="comingSoon.subjects"
-    )
+  .chips-wrapper
+    .chips
+      mu-chip.chip 豆瓣新片榜
+      mu-chip.chip 本周口碑榜
+      mu-chip.chip 北美票房榜
+      mu-chip.chip 豆瓣电影 TOP250
+  x-scroll.scroll(
+    title="正在热映"
+    listName="inTheaters"
+    :subjects="inTheaters.subjects"
+  )
+  x-scroll.scroll(
+    title="即将上映"
+    listName="comingSoon"
+    :subjects="comingSoon.subjects"
+  )
 </template>
 
 <script>
@@ -64,6 +69,31 @@ export default {
 </script>
 
 <style lang="sass">
-// #movie-home
-//   padding-top: 56px
+$scroll-margin: 8px
+$chip-colors: #e53935 #ff7043 #1565c0 #512da8
+
+.scroll
+  margin:
+    top: $scroll-margin
+    left: $scroll-margin
+    right: $scroll-margin
+
+.chips-wrapper
+  margin-top: $scroll-margin
+  padding: $scroll-margin 0
+  overflow-x: scroll
+  overflow-y: hidden
+  &::-webkit-scrollbar
+    display: none
+  .chips
+    padding: 0 $scroll-margin
+    width: fit-content
+    white-space: nowrap
+    .mu-chip
+      &:not(:last-child)
+        margin-right: 12px
+      @for $i from 1 through length($chip-colors)
+        $color: nth($chip-colors, $i)
+        &:nth-child(#{$i})
+          background-color: $color
 </style>

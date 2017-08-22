@@ -10,17 +10,21 @@ import 'animate.css/animate.min.css'
 Vue.use(MuseUI)
 
 Vue.filter('rating', n => {
-  if (typeof(n) === 'number' && n > 0) {
-    return n.toFixed(1)
-  }
-  return '暂无评分'
+  return n > 0 ? n.toFixed(1) : '暂无评分'
 })
 
-Vue.filter('a2s', arr => {
-  if (Array.isArray(arr)) {
-    return arr.join('/')
-  }
-  return ''
+Vue.filter('a2s', (arr, symbol = ' / ') => {
+  return Array.isArray(arr) ? arr.join(symbol) : ''
+})
+
+Vue.filter('mili', num => {
+  return num && num.toString().replace(/(?=(?!^)(\d{3})+$)/g, ',')
+})
+
+Vue.filter('name', arr => {
+  let name = []
+  arr.forEach(a => name.push(a.name + ' ' + a.name_en))
+  return name
 })
 
 Vue.config.productionTip = false

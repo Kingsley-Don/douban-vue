@@ -1,5 +1,5 @@
 <template lang="pug">
-.page
+.page.list-page
   AppBar(
     :title="title"
   )
@@ -37,10 +37,7 @@ export default {
   },
   computed: {
     showDate() {
-      if (this.listName === 'comingSoon') {
-        return true
-      }
-      return false
+      return this.listName === 'comingSoon'
     },
     title() {
       if (this.listName === 'comingSoon') {
@@ -100,15 +97,13 @@ export default {
 
 <style lang="sass">
 $columns: 3
-$grid-gap: 10px
 
 .small-list
-  padding: $grid-gap
+  padding:
+    top: $gap
+    left: $gap
+    right: $gap
   display: grid
   grid-template-columns: repeat($columns, 1fr)
-  grid-gap: $grid-gap
-  .small-card
-    animation-duration: 0.3s
-    .card-poster
-      height: calc((100vw - 40px) / 3 * 1.35)
+  grid-column-gap: $gap
 </style>
