@@ -3,7 +3,7 @@ mu-appbar.bar(
   :class="{ 'home-bar': isHome }"
   :title="title"
   :style="subjectStyle"
-  :titleClass="{ 'opacity': progress !== 1 }"
+  :titleClass="{ 'opacity': progress !== 1 && isSubject}"
 )
   mu-icon-button(
     :icon="icon"
@@ -35,13 +35,13 @@ export default {
   },
   computed: {
     isHome() {
-      return !!this.$route.name === 'home'
+      return !!(this.$route.name === 'home')
     },
     isSubject() {
-      return !!this.$route.name === 'subject'
+      return !!(this.$route.name === 'subject')
     },
     subjectStyle() {
-      if (this.progress < 1) {
+      if (this.progress < 1 && this.isSubject) {
         return {
           boxShadow: '0 0 0 transparent',
           backgroundColor: `rgba(34, 34, 34, ${this.progress})`

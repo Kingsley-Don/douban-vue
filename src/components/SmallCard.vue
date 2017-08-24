@@ -1,7 +1,7 @@
 <template lang="pug">
 .small-card(@click="toSubject()")
   .card-image(
-    :style="{ 'background-image': 'url(' + subject.images.large + ')' }"
+    :style="{ backgroundImage: `url(${subject.images.large})` }"
   )
   .card-title
     p.title

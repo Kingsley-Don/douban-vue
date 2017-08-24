@@ -5,8 +5,7 @@
   .rating-middle
     .inline-block
       stars.rating-stars(:stars="rating.stars")
-      .rating-count {{ count | mili }}
-        |
+      .rating-count {{ count | mili }}&nbsp;
         mu-icon(value="people")
   .rating-details
     .detail(

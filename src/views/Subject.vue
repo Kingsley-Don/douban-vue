@@ -51,13 +51,21 @@
           :class="{ 'closed-button': !isOpen }"
           @click="isOpen = isOpen ? false : true"
         ) {{ isOpen ? '收起' : '更多详情' }}
+
       .subject-comments
+        .comments-title
+        comment(
+          v-for="(comment, index) in subject.popular_comments"
+          :comment="comment"
+          :key="index"
+        )
 </template>
 
 <script>
 import AppBar from '@/components/AppBar'
 import Rating from '@/components/Rating'
-import Reviews from '@/components/Reviews'
+import Comment from '@/components/Comment'
+import Review from '@/components/Review'
 import * as api from '@/api/api'
 import * as _ from 'lodash'
 
@@ -74,6 +82,7 @@ export default {
         writers: [],
         languages: [],
         casts: [],
+        popular_comments: [],
         rating: {
           average: 0,
           details: {
@@ -103,8 +112,10 @@ export default {
     }
   },
   components: {
+    AppBar,
     Rating,
-    AppBar
+    Comment,
+    Review
   },
   computed: {
     photo() {

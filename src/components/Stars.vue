@@ -2,8 +2,9 @@
 .stars
   mu-icon(
     v-for="(star, index) in computedStars"
-    :value="star"
+    value="star"
     :key="index"
+    :class="star"
   )
 </template>
 
@@ -20,14 +21,16 @@ export default {
   computed: {
     computedStars() {
       let stars = []
+      let length = this.stars[1] === '5' ? 6 : 5
       while (stars.length < this.stars[0]) {
-        stars.unshift('star')
+        stars.unshift('yellow')
       }
       if (this.stars[1] === '5') {
-        stars.push('star_half')
+        stars.push('yellow half')
+        stars.push('grey half')
       }
-      while (stars.length < 5) {
-        stars.push('star_border')
+      while (stars.length < length) {
+        stars.push('grey')
       }
       return stars
     }
@@ -36,10 +39,18 @@ export default {
 </script>
 
 <style lang="sass">
+$star-size: 16px
 .stars
   font-size: 0
   i
     color: $star-color
-    font-size: 16px
+    font-size: $star-size
     line-height: 1
+    &.grey
+      color: #666
+    &.half
+      width: $star-size / 2
+      overflow: hidden
+      &.grey
+        transform: rotateY(180deg)
 </style>
