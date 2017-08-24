@@ -1,6 +1,6 @@
 <template lang="pug">
 .page.subject-page
-  AppBar(:scrollTop="scrollTop" :title="subject.title")
+  AppBar(:progress="scrollProgress" :title="subject.title")
   #subject
     img.hidden(:src="subject.photos[0].image")
     .subject-photo(
@@ -12,8 +12,7 @@
         .subject-image(:style="image")
         .subject-title
           h1 {{ subject.title }}
-          p.original-title(v-if="showOriginalTitle")
-            | {{ subject.original_title }}
+          p.original-title(v-if="showOriginalTitle") {{ subject.original_title }}
           p {{ subject.year }}  {{ subject.countries | a2s }}
           p {{ subject.durations[0] }}  {{ subject.genres | a2s }}
         mu-icon-menu.menu(icon="more_vert")
@@ -34,16 +33,16 @@
         :class="{ 'closed-detail': !isOpen }"
       )
         p.summary {{ subject.summary }}
-        .directors(v-if="subject.directors")
+        .directors(v-if="subject.directors.length > 0")
           .detail-title 导演
           p {{ subject.directors | name | a2s(', ') }}
-        .casts(v-if="subject.casts")
+        .casts(v-if="subject.casts.length > 0")
           .detail-title 主演
           p {{ subject.casts | name | a2s(', ') }}
-        .writers(v-if="subject.writers")
+        .writers(v-if="subject.writers.length > 0")
           .detail-title 编剧
           p {{ subject.writers | name | a2s(', ') }}
-        .languages(v-if="subject.languages")
+        .languages(v-if="subject.languages.length > 0")
           .detail-title 语言
           p {{ subject.languages | a2s(', ')}}
 
@@ -52,14 +51,15 @@
           :class="{ 'closed-button': !isOpen }"
           @click="isOpen = isOpen ? false : true"
         ) {{ isOpen ? '收起' : '更多详情' }}
-      .subject-reviews
+      .subject-comments
 </template>
 
 <script>
 import AppBar from '@/components/AppBar'
 import Rating from '@/components/Rating'
+import Reviews from '@/components/Reviews'
 import * as api from '@/api/api'
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 export default {
   name: 'subject',
@@ -70,6 +70,10 @@ export default {
         title: '',
         original_title: '',
         durations: [],
+        directors: [],
+        writers: [],
+        languages: [],
+        casts: [],
         rating: {
           average: 0,
           details: {
@@ -94,6 +98,7 @@ export default {
       },
       isOpen: false,
       scrollTop: 0,
+      scrollHeight: 0,
       scroller: null
     }
   },
@@ -103,9 +108,10 @@ export default {
   },
   computed: {
     photo() {
+      let y = this.scrollProgress < 1 ? this.scrollTop / 2 : this.scrollHeight / 2
       return {
         backgroundImage: `url(${this.subject.photos[0].image})`,
-        transform: `translate3d(0, ${this.scrollTop < 220 ? this.scrollTop / 2 : 110}px, 0)`
+        transform: `translate3d(0, ${y}px, 0)`
       }
     },
     image() {
@@ -115,7 +121,11 @@ export default {
     },
     showOriginalTitle() {
       return this.subject.title !== this.subject.original_title
-        && this.subject.original_title
+        && !!this.subject.original_title
+    },
+    scrollProgress() {
+      let progress =  Math.floor(this.scrollTop / this.scrollHeight * 100) / 100
+      return progress < 1 ? progress : 1
     },
     searchUrl() {
       return {
@@ -147,6 +157,7 @@ export default {
   },
   mounted() {
     this.scroller = this.$el
+    this.scrollHeight = parseInt(this.scroller.clientWidth * 0.52)
     this.scroller.addEventListener('scroll', this.handleScroll)
   }
 }

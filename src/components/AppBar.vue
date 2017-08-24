@@ -3,7 +3,7 @@ mu-appbar.bar(
   :class="{ 'home-bar': isHome }"
   :title="title"
   :style="subjectStyle"
-  :titleClass="{ 'opacity': scrollDone }"
+  :titleClass="{ 'opacity': progress !== 1 }"
 )
   mu-icon-button(
     :icon="icon"
@@ -29,34 +29,25 @@ export default {
       type: String,
       default: ''
     },
-    scrollTop: {
-      type: Number
+    progress: {
+      default: 0
     }
   },
   computed: {
     isHome() {
-      return this.$route.name === 'home'
+      return !!this.$route.name === 'home'
     },
     isSubject() {
-      return this.$route.name === 'subject'
-    },
-    scrollDone() {
-      return this.isSubject && this.scrollTop < 170
+      return !!this.$route.name === 'subject'
     },
     subjectStyle() {
-      if (this.scrollDone) {
+      if (this.progress < 1) {
         return {
           boxShadow: '0 0 0 transparent',
-          backgroundColor: `rgba(34, 34, 34, ${this.opacity})`
+          backgroundColor: `rgba(34, 34, 34, ${this.progress})`
         }
       }
       return {}
-    },
-    opacity() {
-      if (this.scrollDone) {
-        return (this.scrollTop / 170).toFixed(2)
-      }
-      return 1
     }
   },
   methods: {
@@ -84,8 +75,8 @@ export default {
   transition: 0.2s
 
 .opacity
-  transition: 0.2s
   opacity: 0
+
 // .no-bg
 //   background-color: transparent
 //   box-shadow: 0 1px 6px transparent, 0 1px 4px transparent

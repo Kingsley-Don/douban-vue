@@ -4,14 +4,9 @@
     .inline-block {{ this.rating.average | rating }}
   .rating-middle
     .inline-block
-      .rating-stars
-        mu-icon(
-          v-for="(star, index) in stars"
-          :value="star"
-          :key="index"
-        )
+      stars.rating-stars(:stars="rating.stars")
       .rating-count {{ count | mili }}
-        | 
+        |
         mu-icon(value="people")
   .rating-details
     .detail(
@@ -21,6 +16,8 @@
 </template>
 
 <script>
+import Stars from '@/components/Stars'
+
 export default {
   name: 'rating',
   props: {
@@ -34,19 +31,6 @@ export default {
     }
   },
   computed: {
-    stars() {
-      let stars = []
-      while (stars.length < this.rating.stars[0]) {
-        stars.unshift('star')
-      }
-      if (this.rating.stars[1] === '5') {
-        stars.push('star_half')
-      }
-      while (stars.length < 5) {
-        stars.push('star_border')
-      }
-      return stars
-    },
     details() {
       let details = []
       for (let i = 5; i > 0; i--) {
@@ -58,6 +42,9 @@ export default {
       return Math.max(...this.details)
     }
   },
+  components: {
+    Stars
+  }
 }
 </script>
 
@@ -78,12 +65,6 @@ $detail-colors: #43a047 #8bc34a #fff176 #ffb74d #ff5722
     line-height: 1
   .rating-middle
     margin-left: 5px
-    .rating-stars
-      font-size: 0
-      i
-        color: $star-color
-        font-size: 16px
-        line-height: 1
     .rating-count
       font-size: 12px
       i

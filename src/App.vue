@@ -1,8 +1,8 @@
 <template lang="pug">
 #app
   transition(:name="transition")
-    keep-alive(include="home")
-      router-view
+    //- keep-alive(include="home")
+    router-view
 </template>
 
 <script>
