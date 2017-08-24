@@ -87,4 +87,7 @@ $duration: 0.4s
 
 .mu-paper
   background-color: #222
+
+.mu-icon.material-icons
+  vertical-align: bottom
 </style>

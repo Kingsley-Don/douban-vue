@@ -67,8 +67,8 @@ $detail-colors: #43a047 #8bc34a #fff176 #ffb74d #ff5722
     .rating-count
       font-size: 12px
       i
-        vertical-align: text-top
         font-size: 13px
+        line-height: 18px
 
   .rating-details
     flex: 1

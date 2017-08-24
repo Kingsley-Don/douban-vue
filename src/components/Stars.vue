@@ -1,10 +1,11 @@
 <template lang="pug">
-.stars
+.stars(:style="{ width: `${5 * size}px` }")
   mu-icon(
     v-for="(star, index) in computedStars"
     value="star"
     :key="index"
     :class="star"
+    :style="{ fontSize: `${size}px` }"
   )
 </template>
 
@@ -16,6 +17,11 @@ export default {
       type: String,
       default: '00',
       required: true
+    },
+    size: {
+      type: Number,
+      default: 16,
+      required: false
     }
   },
   computed: {
@@ -39,17 +45,14 @@ export default {
 </script>
 
 <style lang="sass">
-$star-size: 16px
 .stars
   font-size: 0
   i
     color: $star-color
-    font-size: $star-size
-    line-height: 1
     &.grey
       color: #666
     &.half
-      width: $star-size / 2
+      width: calc(100% / 10)
       overflow: hidden
       &.grey
         transform: rotateY(180deg)

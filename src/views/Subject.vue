@@ -33,18 +33,19 @@
         :class="{ 'closed-detail': !isOpen }"
       )
         p.summary {{ subject.summary }}
-        .directors(v-if="subject.directors.length > 0")
-          .detail-title 导演
-          p {{ subject.directors | name | a2s(', ') }}
-        .casts(v-if="subject.casts.length > 0")
-          .detail-title 主演
-          p {{ subject.casts | name | a2s(', ') }}
-        .writers(v-if="subject.writers.length > 0")
-          .detail-title 编剧
-          p {{ subject.writers | name | a2s(', ') }}
-        .languages(v-if="subject.languages.length > 0")
-          .detail-title 语言
-          p {{ subject.languages | a2s(', ')}}
+        template(v-show="isOpen")
+          .directors(v-if="subject.directors.length > 0")
+            .detail-title 导演
+            p {{ subject.directors | name | a2s(', ') }}
+          .casts(v-if="subject.casts.length > 0")
+            .detail-title 主演
+            p {{ subject.casts | name | a2s(', ') }}
+          .writers(v-if="subject.writers.length > 0")
+            .detail-title 编剧
+            p {{ subject.writers | name | a2s(', ') }}
+          .languages(v-if="subject.languages.length > 0")
+            .detail-title 语言
+            p {{ subject.languages | a2s(', ')}}
 
       .more-button
         a(
@@ -53,7 +54,7 @@
         ) {{ isOpen ? '收起' : '更多详情' }}
 
       .subject-comments
-        .comments-title
+        .comments-title 短评 ({{ subject.comments_count }})
         comment(
           v-for="(comment, index) in subject.popular_comments"
           :comment="comment"
@@ -95,6 +96,8 @@ export default {
           stars: '00'
         },
         ratings_count: 0,
+        comments_count: 0,
+        reviews_count: 0,
         images: {
           large: ''
         },
@@ -193,14 +196,13 @@ $border-line: 1px solid #333
   background-color: #222
 
 .subject-card
-  padding-top: $card-padding
+  padding: $card-padding
   position: relative
   background-color: #111
 
 .subject-basic
   display: flex
   position: relative
-  margin: 0 $card-padding
   .menu
     position: absolute
     right: 0
@@ -237,7 +239,7 @@ $border-line: 1px solid #333
   border:
     top: $border-line
     bottom: $border-line
-  margin: $card-padding
+  margin: $card-padding 0
   padding:
     top: $card-padding
     right: 10%
@@ -250,7 +252,6 @@ $border-line: 1px solid #333
     color: $text-color
 
 .subject-detail
-  margin: 0 $card-padding
   position: relative
   overflow: hidden
   &.closed-detail
@@ -283,6 +284,13 @@ $border-line: 1px solid #333
   text-align: center
   line-height: 3
   font-size: 16px
-  margin: 0 $card-padding
   border-bottom: $border-line
+
+.subject-comments
+  .comments-title
+    padding: $card-padding 0
+    font-size: 16px
+  .comment
+    &:not(:last-child)
+      margin-bottom: $card-padding
 </style>

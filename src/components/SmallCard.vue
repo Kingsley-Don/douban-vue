@@ -80,5 +80,5 @@ export default {
       i
         color: $star-color
         font-size: 15px
-        vertical-align: text-top
+        line-height: 1.5
 </style>
