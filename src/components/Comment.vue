@@ -71,5 +71,6 @@ $avatar-border-width: 3px
     .content
       color: $text-color
       text-align: justify
+      word-break: break-all
 
 </style>

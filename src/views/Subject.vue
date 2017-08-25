@@ -298,6 +298,7 @@ $border-line: 1px solid #333
     &.summary
       border-bottom: $border-line
       padding-bottom: $card-padding
+      word-break: break-all
 
 .more-button
   text-align: center

@@ -5,8 +5,9 @@
     mu-tabs(:value="activeTab" @change="handleTabChange")
       mu-tab(value="comments" title="短评")
       mu-tab(value="reviews" title="影评")
-  keep-alive
-    router-view
+  transition(:name="transition")
+    keep-alive
+      router-view
 </template>
 
 <script>
@@ -15,22 +16,42 @@ import * as api from '@/api/api'
 export default {
   data () {
     return {
-      activeTab: 'comments',
-      title: ''
+      title: '',
+      transition: 'left'
     }
   },
   components: {
     AppBar
   },
+  computed: {
+    activeTab() {
+      return this.$route.name
+    }
+  },
   methods: {
     handleTabChange(val) {
-      this.activeTab = val
+      this.$router.replace({
+        name: val,
+        params: {
+          id: this.$route.params.id,
+          title: this.title
+        }
+      })
     },
     getTitle() {
       api.getSubject(this.$route.params.id)
         .then(res => {
           this.title = res.title
         })
+    }
+  },
+  watch: {
+    '$route'(to, from) {
+      if (from.name === 'comments') {
+        this.transition = 'left'
+      } else {
+        this.transition = 'right'
+      }
     }
   },
   created() {
@@ -44,8 +65,26 @@ export default {
 </script>
 
 <style lang="sass">
+.left-enter, .right-leave-to
+  transform: translateX(100vw)
+
+.left-enter-to, .right-leave
+  transform: translateX(0)
+
+.left-leave, .right-enter-to
+  transform: translateX(0)
+
+.left-leave-to, .right-enter
+  transform: translateX(-100vw)
+
+.left-enter-to,
+.left-leave-to,
+.right-enter-to,
+.right-leave-to
+  transition-duration: 0.2s
+
+
 #discussion
-  padding-top: 56px + 48px
   overflow: hidden
   header
     position: fixed

@@ -56,4 +56,5 @@ export default {
   .review-summary
     font-size: 12px
     color: $text-color
+    word-break: break-all
 </style>
