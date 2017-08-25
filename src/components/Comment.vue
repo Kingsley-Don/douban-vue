@@ -49,6 +49,7 @@ $avatar-border-width: 3px
         line-height: 1
         font-size: 16px
       .comment-details
+        white-space: nowrap
         font-size: 0
         padding: 4px 0
         .stars
@@ -64,6 +65,7 @@ $avatar-border-width: 3px
         text-align: right
         color: $text-color
         line-height: 1
+        white-space: nowrap
         i
           font-size: 14px
     .content

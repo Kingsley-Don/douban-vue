@@ -47,6 +47,7 @@ export default {
 <style lang="sass">
 .stars
   font-size: 0
+  vertical-align: bottom
   i
     color: $star-color
     &.grey

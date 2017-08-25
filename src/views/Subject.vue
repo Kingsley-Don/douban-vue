@@ -60,13 +60,18 @@
           :comment="comment"
           :key="index"
         )
-
       .more-button
         router-link(:to="{ name: '', params: {} }") 查看全部短评
 
-
       .subject-comments
         .comments-title 影评 ({{ subject.reviews_count }})
+        review(
+          v-for="(review, index) in subject.popular_reviews.slice(0, 4)"
+          :review="review"
+          :key="index"
+        )
+      .more-button
+        router-link(:to="{ name: '', params: {} }") 查看全部影评
 </template>
 
 <script>
@@ -91,6 +96,7 @@ export default {
         languages: [],
         casts: [],
         popular_comments: [],
+        popular_reviews: [],
         rating: {
           average: 0,
           details: {
@@ -297,7 +303,7 @@ $border-line: 1px solid #333
   .comments-title
     padding: $card-padding 0
     font-size: 16px
-  .comment
+  .comment, .review
     &:not(:last-child)
       margin-bottom: $card-padding
 </style>
