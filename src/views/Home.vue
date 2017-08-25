@@ -104,6 +104,7 @@ $chip-colors: #e53935 #ff7043 #1565c0 #512da8
     width: fit-content
     white-space: nowrap
     .mu-chip
+      color: white
       &:not(:last-child)
         margin-right: 12px
       @for $i from 1 through length($chip-colors)

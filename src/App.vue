@@ -42,6 +42,7 @@ $duration: 0.4s
   margin: 0
   padding: 0
   box-sizing: border-box
+  color: white
 
 .forward-enter, .back-leave-to
   transform: translateY(100vh)

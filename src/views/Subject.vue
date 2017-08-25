@@ -61,7 +61,7 @@
           :key="index"
         )
       .more-button
-        router-link(:to="{ name: '', params: {} }") 查看全部短评
+        router-link(:to="{ name: 'comments', params: routeParams }") 查看全部短评
 
       .subject-comments
         .comments-title 影评 ({{ subject.reviews_count }})
@@ -71,7 +71,7 @@
           :key="index"
         )
       .more-button
-        router-link(:to="{ name: '', params: {} }") 查看全部影评
+        router-link(:to="{ name: 'reviews', params: routeParams }") 查看全部影评
 </template>
 
 <script>
@@ -153,6 +153,12 @@ export default {
     scrollProgress() {
       let progress =  Math.floor(this.scrollTop / this.scrollHeight * 100) / 100
       return progress < 1 ? progress : 1
+    },
+    routeParams() {
+      return {
+        id: this.subject.id,
+        title: this.subject.title
+      }
     },
     searchUrl() {
       return {

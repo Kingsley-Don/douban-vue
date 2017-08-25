@@ -4,6 +4,9 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import SmallList from '@/views/SmallList'
 import Subject from '@/views/Subject'
+import Discussion from '@/views/Discussion'
+import CommentList from '@/views/CommentList'
+import ReviewList from '@/views/ReviewList'
 import ErrorPage from '@/views/Error'
 
 Vue.use(Router)
@@ -34,6 +37,22 @@ export default new Router({
       path: '/movie/:id',
       name: 'subject',
       component: Subject
+    },
+    {
+      path: '/movie/:id',
+      component: Discussion,
+      children: [
+        {
+          path: 'comment',
+          name: 'comments',
+          component: CommentList
+        },
+        {
+          path: 'review',
+          name: 'reviews',
+          component: ReviewList
+        }
+      ]
     },
     {
       path: '/error',
