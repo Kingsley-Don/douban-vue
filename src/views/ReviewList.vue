@@ -73,6 +73,6 @@ export default {
 <style lang="sass">
 .discussion-wrapper
   .review
-    padding: 20px
-    padding-bottom: 0
+    margin: 30px 20px
+    margin-bottom: 0
 </style>

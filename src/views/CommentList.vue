@@ -80,6 +80,6 @@ export default {
   right: 0
   bottom: 0
   .comment
-    padding: 20px
-    padding-bottom: 0
+    margin: 30px 20px
+    margin-bottom: 0
 </style>
