@@ -1,4 +1,4 @@
-# 未命名
+# Material Douban
 
 > 基于 Materil Design 与豆瓣 API 的 Vue.js 项目
 
@@ -19,6 +19,8 @@
 ### 待完成
 
 - 搜索功能
+
+- 影评页面
 
 - 配色调整
 
