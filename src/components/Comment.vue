@@ -6,12 +6,11 @@
     .head
       div
         .name {{ comment.author.name }}
-        .rating
-          Stars.rating(:stars="comment.rating.value + '0'" :size="12")
-          span &nbsp;{{ comment.created_at.slice(0, 10) }}
-      .useful
+        .comment-details
+          Stars.comment-stars(:stars="comment.rating.value + '0'" :size="12")
+          .date &nbsp;&nbsp;{{ comment.created_at }}
+      .useful {{ comment.useful_count }}&nbsp;&nbsp;
         mu-icon(value="thumb_up")
-        | &nbsp;&nbsp;{{ comment.useful_count }}
     p.content {{ comment.content }}
 </template>
 
@@ -27,7 +26,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 $avatar-width: 40px
 $avatar-border-width: 3px
 
@@ -47,20 +46,25 @@ $avatar-border-width: 3px
       display: flex
       // align-items: center
       .name
-      .rating
+        line-height: 1
+        font-size: 16px
+      .comment-details
         font-size: 0
+        padding: 4px 0
         .stars
-          i
-            line-height: 1.5
-        span
+          display: inline-block
+          vertical-align: bottom
+        .date
+          display: inline-block
           font-size: 12px
           color: $text-color
+          line-height: 1
       .useful
         flex: 1
         text-align: right
         color: $text-color
+        line-height: 1
         i
-          line-height: 1.5
           font-size: 14px
     .content
       color: $text-color

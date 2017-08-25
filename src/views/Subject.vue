@@ -60,6 +60,13 @@
           :comment="comment"
           :key="index"
         )
+
+      .more-button
+        router-link(:to="{ name: '', params: {} }") 查看全部短评
+
+
+      .subject-comments
+        .comments-title 影评 ({{ subject.reviews_count }})
 </template>
 
 <script>

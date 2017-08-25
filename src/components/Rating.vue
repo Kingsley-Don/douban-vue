@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 $score-font-size: 50px
 $detail-colors: #43a047 #8bc34a #fff176 #ffb74d #ff5722
 
