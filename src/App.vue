@@ -10,25 +10,25 @@ export default {
   name: 'app',
   data() {
     return {
-      isBack: false,
+      transition: 'back',
+      routes: {
+        home: 0,
+        inTheaters: 1,
+        comingSoon: 1,
+        subject: 2,
+        comments: 3,
+        reviews: 3
+      }
     }
   },
   computed: {
-    transition() {
-      if (this.isBack) {
-        return 'back'
-      }
-      return 'forward'
-    }
   },
   watch: {
     '$route'(to, from) {
-      if (to.name === 'home'
-          || from.name === 'subject'
-      ) {
-        this.isBack = true
+      if (this.routes[to.name] < this.routes[from.name]) {
+        this.transition = 'back'
       } else {
-        this.isBack = false
+        this.transition = 'forward'
       }
     }
   }
@@ -81,6 +81,8 @@ $duration: 0.4s
     z-index: 3
   &.subject-page
     z-index: 4
+  &.discussion-page
+    z-index: 5
 
 .mu-appbar
   color: white

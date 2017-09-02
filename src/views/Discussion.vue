@@ -1,5 +1,5 @@
 <template lang="pug">
-.page#discussion
+.page.discussion-page
   header
     AppBar.discussion-bar(:title="title")
     mu-tabs(:value="activeTab" @change="handleTabChange")
@@ -84,7 +84,7 @@ export default {
   transition-duration: 0.2s
 
 
-#discussion
+.discussion-page
   overflow: hidden
   header
     position: fixed
