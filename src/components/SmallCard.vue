@@ -64,6 +64,7 @@ export default {
   .card-image
     +bg
     padding-top: 140%
+    background-color: #333
 
   .card-title
     padding: 8px 0
@@ -79,6 +80,6 @@ export default {
       font-size: $text-size
       i
         color: $star-color
-        font-size: 15px
+        font-size: 14px
         line-height: 1.5
 </style>

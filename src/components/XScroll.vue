@@ -3,8 +3,16 @@ mu-paper
   .header
     .title {{ title }}
     router-link(:to="{ name: listName }") 更多
-  .scroll-wrapper(ref="wrapper")
+  .scroll-wrapper
     .scroll-small-cards
+      template(v-if="subjects.length === 0")
+        - var n = 0
+          while n < 5
+            small-card.scroll-small-card(
+              :subject="loadingSubject"
+              :showDate="showDate"
+            )
+            - n++
       small-card.scroll-small-card(
         v-for="(subject, index) in subjects"
         :subject="subject"
@@ -18,12 +26,26 @@ import SmallCard from '@/components/SmallCard'
 
 export default {
   name: 'x-scroll',
+  data () {
+    return {
+      loadingSubject: {
+        id: 0,
+        title: 'Loading...',
+        rating: {
+          average: 0
+        },
+        images: {
+          large: ''
+        },
+        mainland_pubdate: '0000-00-00'
+      },
+    }
+  },
   props: {
     title: String,
     listName: String,
     subjects: {
-      type: Array,
-      default: []
+      type: Array
     }
   },
   computed: {

@@ -72,7 +72,15 @@ export default {
 
 <style lang="sass">
 .discussion-wrapper
+  overflow-x: hidden
+  overflow-y: auto
+  position: absolute
+  top: 104px
+  left: 0
+  right: 0
+  bottom: 0
+  padding-top: 20px
   .review
-    margin: 30px 20px
-    margin-bottom: 0
+    margin: 20px
+    margin-top: 0
 </style>
