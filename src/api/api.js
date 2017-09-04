@@ -20,3 +20,7 @@ export function getComments(id, start, count) {
 export function getReviews(id, start, count) {
   return get(`subject/${id}/reviews`, { start: start, count: count })
 }
+
+export function getReview(id) {
+  return get(`review/${id}`)
+}

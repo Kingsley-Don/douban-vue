@@ -7,6 +7,7 @@ import Subject from '@/views/Subject'
 import Discussion from '@/views/Discussion'
 import CommentList from '@/views/CommentList'
 import ReviewList from '@/views/ReviewList'
+import Review from '@/views/Review'
 import ErrorPage from '@/views/Error'
 
 Vue.use(Router)
@@ -53,6 +54,11 @@ export default new Router({
           component: ReviewList
         }
       ]
+    },
+    {
+      path: '/review/:id',
+      name: 'review',
+      component: Review,
     },
     {
       path: '/error',
