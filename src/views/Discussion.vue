@@ -97,4 +97,13 @@ export default {
     background-color: #222
     .mu-tab-text
       color: white
+  .discussion-wrapper
+    overflow-x: hidden
+    overflow-y: auto
+    position: absolute
+    top: 104px
+    left: 0
+    right: 0
+    bottom: 0
+    padding-top: 20px
 </style>

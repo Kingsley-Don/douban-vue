@@ -86,41 +86,7 @@ export default {
   name: 'subject',
   data() {
     return {
-      subject: {
-        id: 0,
-        title: '',
-        original_title: '',
-        durations: [],
-        directors: [],
-        writers: [],
-        languages: [],
-        casts: [],
-        popular_comments: [],
-        popular_reviews: [],
-        rating: {
-          average: 0,
-          details: {
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0
-          },
-          stars: '00'
-        },
-        ratings_count: 0,
-        comments_count: 0,
-        reviews_count: 0,
-        images: {
-          large: ''
-        },
-        summary: '',
-        photos: [
-          {
-            image: ''
-          }
-        ]
-      },
+      subject: null,
       isOpen: false,
       scrollTop: 0,
       scrollHeight: 0,
@@ -169,6 +135,49 @@ export default {
     }
   },
   methods: {
+    init() {
+      this.subject = new Object({
+        id: 0,
+        title: '',
+        original_title: '',
+        durations: [],
+        directors: [],
+        writers: [],
+        languages: [],
+        casts: [],
+        popular_comments: [],
+        popular_reviews: [],
+        rating: {
+          average: 0,
+          details: {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+          },
+          stars: '00'
+        },
+        ratings_count: 0,
+        comments_count: 0,
+        reviews_count: 0,
+        images: {
+          large: ''
+        },
+        summary: '',
+        photos: [
+          {
+            image: ''
+          }
+        ]
+      })
+    },
+    initScroller() {
+      this.scroller = this.$el
+      this.scrollTop = 0
+      this.scrollHeight = parseInt(this.scroller.clientWidth * 0.52)
+      this.scroller.addEventListener('scroll', this.handleScroll)
+    },
     preLoad() {
       if (this.$route.params.subject) {
         _.merge(this.subject, this.$route.params.subject)
@@ -184,14 +193,21 @@ export default {
       this.scrollTop = this.scroller.scrollTop
     }
   },
+  activated() {
+    this.initScroller()
+    if (this.$route.params.id !== this.subject.id) {
+      this.init()
+      this.preLoad()
+      this.loadMore()
+    }
+  },
   created() {
+    this.init()
     this.preLoad()
     this.loadMore()
   },
   mounted() {
-    this.scroller = this.$el
-    this.scrollHeight = parseInt(this.scroller.clientWidth * 0.52)
-    this.scroller.addEventListener('scroll', this.handleScroll)
+    this.initScroller()
   }
 }
 </script>
@@ -310,7 +326,7 @@ $border-line: 1px solid #333
   .comments-title
     padding: $card-padding 0
     font-size: 16px
-  .comment, .review
+  .comment, .review-card
     &:not(:last-child)
       margin-bottom: $card-padding
 </style>

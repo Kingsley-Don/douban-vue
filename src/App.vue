@@ -1,8 +1,8 @@
 <template lang="pug">
 #app
   transition(:name="transition")
-    //- keep-alive(include="home")
-    router-view
+    keep-alive
+      router-view
 </template>
 
 <script>
@@ -17,7 +17,8 @@ export default {
         comingSoon: 1,
         subject: 2,
         comments: 3,
-        reviews: 3
+        reviews: 3,
+        review: 4
       }
     }
   },
@@ -37,6 +38,9 @@ export default {
 
 <style lang="sass">
 $duration: 0.4s
+
+body
+  background-color: #111
 
 *
   margin: 0
@@ -83,6 +87,8 @@ $duration: 0.4s
     z-index: 4
   &.discussion-page
     z-index: 5
+  &.review-page
+    z-index: 6
 
 .mu-appbar
   color: white

@@ -1,5 +1,5 @@
 <template lang="pug">
-.review(@click="routeToReview")
+.review-card(@click="routeToReview")
   .review-title {{ review.title }}
   .review-author
     Stars.review-stars(:stars="review.rating.value + '0'" :size="12")
@@ -20,7 +20,9 @@ export default {
     routeToReview() {
       this.$router.push({
         name: 'review',
-        params: {}
+        params: {
+          id: this.review.id
+        }
       })
     }
   }
@@ -28,7 +30,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.review
+.review-card
   position: relative
   &:active::after
     content: ''
