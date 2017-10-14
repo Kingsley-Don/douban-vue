@@ -4,9 +4,9 @@
 
 ## 预览
 
-![主页](http://olh7l240x.bkt.clouddn.com/1.gif)
-![电影详情页](http://olh7l240x.bkt.clouddn.com/2.gif)
-![影评页](http://olh7l240x.bkt.clouddn.com/3.gif)
+![主页](http://olh7l240x.bkt.clouddn.com/1.gif?v=1)
+![电影详情页](http://olh7l240x.bkt.clouddn.com/2.gif?v=1)
+![影评页](http://olh7l240x.bkt.clouddn.com/3.gif?v=1)
 
 ## 快速开始
 
