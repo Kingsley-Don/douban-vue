@@ -2,6 +2,12 @@
 
 > 基于 Materil Design 与豆瓣 API 的 Vue.js 项目
 
+## 预览
+
+![主页](http://olh7l240x.bkt.clouddn.com/1.gif)
+![电影详情页](http://olh7l240x.bkt.clouddn.com/2.gif)
+![影评页](http://olh7l240x.bkt.clouddn.com/3.gif)
+
 ## 快速开始
 
 ```shell
