@@ -1,5 +1,7 @@
 # Material Douban
 
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://github.com/Kingsley-Don/douban-vue.js)
+
 > 基于 Materil Design 与豆瓣 API 的 Vue.js 项目
 
 ## 预览
