@@ -6,7 +6,7 @@
     :docked="false"
   )
   AppBar(
-    title="？？？"
+    title="Material Douban"
     icon="menu"
     @toggle="toggleDrawer"
   )
