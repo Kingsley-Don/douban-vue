@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
-import 'muse-ui/dist/theme-carbon.css'
+import './assets/style/theme.css'
 import 'animate.css/animate.min.css'
 
 Vue.use(MuseUI)
