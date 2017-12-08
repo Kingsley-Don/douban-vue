@@ -1,14 +1,14 @@
 # Material Douban
 
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://github.com/Kingsley-Don/douban-vue.js)
-
 > 基于 Materil Design 与豆瓣 API 的 Vue.js 项目
 
 ## 预览
 
-![](http://olh7l240x.bkt.clouddn.com/17-10-16/82360930.jpg) 
-![](http://olh7l240x.bkt.clouddn.com/17-10-16/62154002.jpg) 
-![](http://olh7l240x.bkt.clouddn.com/17-10-16/9988406.jpg) 
+访问[这里](http://47.93.224.150:8080)可在线预览
+
+![](http://olh7l240x.bkt.clouddn.com/17-10-16/82360930.jpg)
+![](http://olh7l240x.bkt.clouddn.com/17-10-16/62154002.jpg)
+![](http://olh7l240x.bkt.clouddn.com/17-10-16/9988406.jpg)
 
 ## 快速开始
 
