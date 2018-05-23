@@ -29,57 +29,57 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import * as types from '@/store/types'
-import AppBar from '@/components/AppBar'
-import XScroll from '@/components/XScroll'
+// import { mapState } from 'vuex';
+import * as types from '@/store/types';
+import AppBar from '@/components/AppBar';
+import XScroll from '@/components/XScroll';
 
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
-      drawerOpen: false
-    }
+      drawerOpen: false,
+    };
   },
   computed: {
     inTheaters() {
       return {
         name: 'inTheaters',
         subjects: this.$store.state.lists.inTheaters.subjects.slice(0, 12),
-        count: this.$store.state.lists.inTheaters.count
-      }
+        count: this.$store.state.lists.inTheaters.count,
+      };
     },
     comingSoon() {
       return {
         name: 'comingSoon',
         subjects: this.$store.state.lists.comingSoon.subjects.slice(0, 12),
-        count: this.$store.state.lists.comingSoon.count
-      }
-    }
+        count: this.$store.state.lists.comingSoon.count,
+      };
+    },
   },
   methods: {
     updateList(list) {
-      if (list.count === 0){
+      if (list.count === 0) {
         this.$store.dispatch(types.GET_SUBJECTS, {
           name: list.name,
           start: list.count,
-          count: 18
-        })
+          count: 18,
+        });
       }
     },
     toggleDrawer() {
-      this.drawerOpen ? this.drawerOpen = false : this.drawerOpen = true
-    }
+      this.drawerOpen = !this.drawerOpen;
+    },
   },
   components: {
     AppBar,
-    XScroll
+    XScroll,
   },
   created() {
-    this.updateList(this.inTheaters)
-    this.updateList(this.comingSoon)
-  }
-}
+    this.updateList(this.inTheaters);
+    this.updateList(this.comingSoon);
+  },
+};
 </script>
 
 <style lang="sass">

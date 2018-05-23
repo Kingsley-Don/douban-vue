@@ -22,23 +22,23 @@ export default {
   props: {
     subject: {
       type: Object,
-      default: {
-        id: 0,
-        title: '',
-        rating: {
-          average: 0
-        },
-        images: {
-          large: ''
-        },
-        mainland_pubdate: ''
-      },
-      required: true
+      // default: {
+      //   id: 0,
+      //   title: '',
+      //   rating: {
+      //     average: 0,
+      //   },
+      //   images: {
+      //     large: '',
+      //   },
+      //   mainland_pubdate: '',
+      // },
+      required: true,
     },
     showDate: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     toSubject() {
@@ -47,13 +47,13 @@ export default {
           name: 'subject',
           params: {
             id: this.subject.id,
-            subject: this.subject
+            subject: this.subject,
           },
-        })
+        });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="sass">

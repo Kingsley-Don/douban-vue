@@ -16,58 +16,58 @@
 </template>
 
 <script>
-import Review from '@/components/Review'
-import * as api from '@/api/api'
+import Review from '@/components/Review';
+import * as api from '@/api/api';
+
 export default {
-  data () {
+  data() {
     return {
       reviews: [],
       scroller: null,
       loading: false,
       isLoaded: false,
       total: 0,
-      count: 0
-    }
+      count: 0,
+    };
   },
   components: {
-    Review
+    Review,
   },
   methods: {
     loadMore() {
-      this.loading = true
-      api.getReviews(this.$route.params.id, this.count, 20)
-        .then(res => {
-          this.reviews.push(...res.reviews)
-          this.total = res.total
-          if (res.total = 0) {
-            this.loading = false
-            this.isLoaded = true
-          }
-        })
+      this.loading = true;
+      api.getReviews(this.$route.params.id, this.count, 20).then((res) => {
+        this.reviews.push(...res.reviews);
+        this.total = res.total;
+        if (res.total === 0) {
+          this.loading = false;
+          this.isLoaded = true;
+        }
+      });
     },
     checkLoaded() {
       if (this.total !== 0 && this.count === this.total) {
-        this.isLoaded = true
+        this.isLoaded = true;
       }
-    }
+    },
   },
   watch: {
-    reviews: function (val, oldVal) {
-      this.count = val.length
-      this.checkLoaded()
-      this.loading = false
-    }
+    reviews(val) {
+      this.count = val.length;
+      this.checkLoaded();
+      this.loading = false;
+    },
   },
   created() {
     if (this.count === 0) {
-      this.loadMore()
+      this.loadMore();
     }
-    this.checkLoaded()
+    this.checkLoaded();
   },
   mounted() {
-    this.scroller = this.$el
-  }
-}
+    this.scroller = this.$el;
+  },
+};
 </script>
 
 <style lang="sass">

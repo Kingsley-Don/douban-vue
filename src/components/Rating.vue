@@ -15,36 +15,36 @@
 </template>
 
 <script>
-import Stars from '@/components/Stars'
+import Stars from '@/components/Stars';
 
 export default {
   name: 'rating',
   props: {
     rating: {
       type: Object,
-      required: true
+      required: true,
     },
     count: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     details() {
-      let details = []
-      for (let i = 5; i > 0; i--) {
-        details.push(this.rating.details[i])
+      const details = [];
+      for (let i = 5; i > 0; i -= 1) {
+        details.push(this.rating.details[i]);
       }
-      return details
+      return details;
     },
     maxDetail() {
-      return Math.max(...this.details)
-    }
+      return Math.max(...this.details);
+    },
   },
   components: {
-    Stars
-  }
-}
+    Stars,
+  },
+};
 </script>
 
 <style lang="sass" scoped>

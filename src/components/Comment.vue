@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import Stars from '@/components/Stars'
+import Stars from '@/components/Stars';
 
 export default {
   name: 'comment',
   props: ['comment'],
   components: {
-    Stars
-  }
-}
+    Stars,
+  },
+};
 </script>
 
 <style lang="sass" scoped>

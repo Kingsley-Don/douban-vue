@@ -8,25 +8,25 @@
 </template>
 
 <script>
-import Stars from '@/components/Stars'
+import Stars from '@/components/Stars';
 
 export default {
   name: 'review',
   props: ['review'],
   components: {
-    Stars
+    Stars,
   },
   methods: {
     routeToReview() {
       this.$router.push({
         name: 'review',
         params: {
-          id: this.review.id
-        }
-      })
-    }
-  }
-}
+          id: this.review.id,
+        },
+      });
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

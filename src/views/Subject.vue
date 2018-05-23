@@ -75,12 +75,12 @@
 </template>
 
 <script>
-import AppBar from '@/components/AppBar'
-import Rating from '@/components/Rating'
-import Comment from '@/components/Comment'
-import Review from '@/components/Review'
-import * as api from '@/api/api'
-import * as _ from 'lodash'
+import AppBar from '@/components/AppBar';
+import Rating from '@/components/Rating';
+import Comment from '@/components/Comment';
+import Review from '@/components/Review';
+import * as api from '@/api/api';
+import * as _ from 'lodash';
 
 export default {
   name: 'subject',
@@ -90,53 +90,54 @@ export default {
       isOpen: false,
       scrollTop: 0,
       scrollHeight: 0,
-      scroller: null
-    }
+      scroller: null,
+    };
   },
   components: {
     AppBar,
     Rating,
     Comment,
-    Review
+    Review,
   },
   computed: {
     photo() {
-      let y = this.scrollProgress < 1 ? this.scrollTop / 2 : this.scrollHeight / 2
+      const y = this.scrollProgress < 1 ? this.scrollTop / 2 : this.scrollHeight / 2;
       return {
         backgroundImage: `url(${this.subject.photos[0].image})`,
-        transform: `translate3d(0, ${y}px, 0)`
-      }
+        transform: `translate3d(0, ${y}px, 0)`,
+      };
     },
     image() {
       return {
-        backgroundImage: `url(${this.subject.images.large})`
-      }
+        backgroundImage: `url(${this.subject.images.large})`,
+      };
     },
     showOriginalTitle() {
-      return this.subject.title !== this.subject.original_title
-        && !!this.subject.original_title
+      return this.subject.title !== this.subject.original_title && !!this.subject.original_title;
     },
     scrollProgress() {
-      let progress =  Math.floor(this.scrollTop / this.scrollHeight * 100) / 100
-      return progress < 1 ? progress : 1
+      const progress = Math.floor(this.scrollTop / this.scrollHeight * 100) / 100;
+      return progress < 1 ? progress : 1;
     },
     routeParams() {
       return {
         id: this.subject.id,
-        title: this.subject.title
-      }
+        title: this.subject.title,
+      };
     },
     searchUrl() {
       return {
         imdb: `http://m.imdb.com/find?q=${this.subject.original_title}`,
-        rottenTomatoes: `https://www.rottentomatoes.com/search/?search=${this.subject.original_title}`,
-        metacritic: `http://www.metacritic.com/search/all/${this.subject.original_title}/results`
-      }
-    }
+        rottenTomatoes: `https://www.rottentomatoes.com/search/?search=${
+          this.subject.original_title
+        }`,
+        metacritic: `http://www.metacritic.com/search/all/${this.subject.original_title}/results`,
+      };
+    },
   },
   methods: {
     init() {
-      this.subject = new Object({
+      this.subject = {
         id: 0,
         title: '',
         original_title: '',
@@ -154,62 +155,61 @@ export default {
             2: 0,
             3: 0,
             4: 0,
-            5: 0
+            5: 0,
           },
-          stars: '00'
+          stars: '00',
         },
         ratings_count: 0,
         comments_count: 0,
         reviews_count: 0,
         images: {
-          large: ''
+          large: '',
         },
         summary: '',
         photos: [
           {
-            image: ''
-          }
-        ]
-      })
+            image: '',
+          },
+        ],
+      };
     },
     initScroller() {
-      this.scroller = this.$el
-      this.scrollTop = 0
-      this.scrollHeight = parseInt(this.scroller.clientWidth * 0.52)
-      this.scroller.addEventListener('scroll', this.handleScroll)
+      this.scroller = this.$el;
+      this.scrollTop = 0;
+      this.scrollHeight = parseInt(this.scroller.clientWidth * 0.52, 10);
+      this.scroller.addEventListener('scroll', this.handleScroll);
     },
     preLoad() {
       if (this.$route.params.subject) {
-        _.merge(this.subject, this.$route.params.subject)
+        _.merge(this.subject, this.$route.params.subject);
       }
     },
     loadMore() {
-      api.getSubject(this.$route.params.id)
-        .then(res => {
-          _.merge(this.subject, res)
-        })
+      api.getSubject(this.$route.params.id).then((res) => {
+        _.merge(this.subject, res);
+      });
     },
     handleScroll() {
-      this.scrollTop = this.scroller.scrollTop
-    }
+      this.scrollTop = this.scroller.scrollTop;
+    },
   },
   activated() {
-    this.initScroller()
+    this.initScroller();
     if (this.$route.params.id !== this.subject.id) {
-      this.init()
-      this.preLoad()
-      this.loadMore()
+      this.init();
+      this.preLoad();
+      this.loadMore();
     }
   },
   created() {
-    this.init()
-    this.preLoad()
-    this.loadMore()
+    this.init();
+    this.preLoad();
+    this.loadMore();
   },
   mounted() {
-    this.initScroller()
-  }
-}
+    this.initScroller();
+  },
+};
 </script>
 
 <style lang="sass">

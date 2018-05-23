@@ -18,22 +18,21 @@ export default {
         subject: 2,
         comments: 3,
         reviews: 3,
-        review: 4
-      }
-    }
+        review: 4,
+      },
+    };
   },
-  computed: {
-  },
+  computed: {},
   watch: {
-    '$route'(to, from) {
+    $route(to, from) {
       if (this.routes[to.name] < this.routes[from.name]) {
-        this.transition = 'back'
+        this.transition = 'back';
       } else {
-        this.transition = 'forward'
+        this.transition = 'forward';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="sass">

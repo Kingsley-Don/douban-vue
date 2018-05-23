@@ -16,58 +16,58 @@
 </template>
 
 <script>
-import Comment from '@/components/Comment'
-import * as api from '@/api/api'
+import Comment from '@/components/Comment';
+import * as api from '@/api/api';
+
 export default {
-  data () {
+  data() {
     return {
       comments: [],
       scroller: null,
       loading: false,
       isLoaded: false,
       total: 0,
-      count: 0
-    }
+      count: 0,
+    };
   },
   components: {
-    Comment
+    Comment,
   },
   methods: {
     loadMore() {
-      this.loading = true
-      api.getComments(this.$route.params.id, this.count, 20)
-        .then(res => {
-          this.comments.push(...res.comments)
-          this.total = res.total
-          if (res.total = 0) {
-            this.loading = false
-            this.isLoaded = true
-          }
-        })
+      this.loading = true;
+      api.getComments(this.$route.params.id, this.count, 20).then((res) => {
+        this.comments.push(...res.comments);
+        this.total = res.total;
+        if (res.total === 0) {
+          this.loading = false;
+          this.isLoaded = true;
+        }
+      });
     },
     checkLoaded() {
       if (this.total !== 0 && this.count === this.total) {
-        this.isLoaded = true
+        this.isLoaded = true;
       }
-    }
+    },
   },
   watch: {
-    comments: function (val, oldVal) {
-      this.count = val.length
-      this.checkLoaded()
-      this.loading = false
-    }
+    comments(val) {
+      this.count = val.length;
+      this.checkLoaded();
+      this.loading = false;
+    },
   },
   created() {
     if (this.count === 0) {
-      this.loadMore()
+      this.loadMore();
     }
-    this.checkLoaded()
+    this.checkLoaded();
   },
   mounted() {
-    this.scroller = this.$el
-  }
-}
+    this.scroller = this.$el;
+  },
+};
 </script>
 
 <style lang="sass">

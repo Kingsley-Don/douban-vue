@@ -22,41 +22,41 @@ mu-paper
 </template>
 
 <script>
-import SmallCard from '@/components/SmallCard'
+import SmallCard from '@/components/SmallCard';
 
 export default {
   name: 'x-scroll',
-  data () {
+  data() {
     return {
       loadingSubject: {
         id: 0,
         title: 'Loading...',
         rating: {
-          average: 0
+          average: 0,
         },
         images: {
-          large: ''
+          large: '',
         },
-        mainland_pubdate: '0000-00-00'
+        mainland_pubdate: '0000-00-00',
       },
-    }
+    };
   },
   props: {
     title: String,
     listName: String,
     subjects: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   computed: {
     showDate() {
-      return this.listName === 'comingSoon'
-    }
+      return this.listName === 'comingSoon';
+    },
   },
   components: {
-    SmallCard
+    SmallCard,
   },
-}
+};
 </script>
 
 <style lang="sass">

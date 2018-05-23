@@ -11,22 +11,23 @@
 </template>
 
 <script>
-import AppBar from '@/components/AppBar'
-import * as api from '@/api/api'
+import AppBar from '@/components/AppBar';
+import * as api from '@/api/api';
+
 export default {
-  data () {
+  data() {
     return {
       title: '',
-      transition: 'left'
-    }
+      transition: 'left',
+    };
   },
   components: {
-    AppBar
+    AppBar,
   },
   computed: {
     activeTab() {
-      return this.$route.name
-    }
+      return this.$route.name;
+    },
   },
   methods: {
     handleTabChange(val) {
@@ -34,34 +35,33 @@ export default {
         name: val,
         params: {
           id: this.$route.params.id,
-          title: this.title
-        }
-      })
+          title: this.title,
+        },
+      });
     },
     getTitle() {
-      api.getSubject(this.$route.params.id)
-        .then(res => {
-          this.title = res.title
-        })
-    }
+      api.getSubject(this.$route.params.id).then((res) => {
+        this.title = res.title;
+      });
+    },
   },
   watch: {
-    '$route'(to, from) {
+    $route(to, from) {
       if (from.name === 'comments') {
-        this.transition = 'left'
+        this.transition = 'left';
       } else {
-        this.transition = 'right'
+        this.transition = 'right';
       }
-    }
+    },
   },
   created() {
-    if (!!this.$route.params.title) {
-      this.title = this.$route.params.title
+    if (this.$route.params.title) {
+      this.title = this.$route.params.title;
     } else {
-      this.getTitle()
+      this.getTitle();
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="sass">

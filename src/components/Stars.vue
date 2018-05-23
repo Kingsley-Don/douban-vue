@@ -16,32 +16,32 @@ export default {
     stars: {
       type: String,
       default: '00',
-      required: true
+      required: true,
     },
     size: {
       type: Number,
       default: 16,
-      required: false
-    }
+      required: false,
+    },
   },
   computed: {
     computedStars() {
-      let stars = []
-      let length = this.stars[1] === '5' ? 6 : 5
+      const stars = [];
+      const length = this.stars[1] === '5' ? 6 : 5;
       while (stars.length < this.stars[0]) {
-        stars.unshift('yellow')
+        stars.unshift('yellow');
       }
       if (this.stars[1] === '5') {
-        stars.push('yellow half')
-        stars.push('grey half')
+        stars.push('yellow half');
+        stars.push('grey half');
       }
       while (stars.length < length) {
-        stars.push('grey')
+        stars.push('grey');
       }
-      return stars
-    }
-  }
-}
+      return stars;
+    },
+  },
+};
 </script>
 
 <style lang="sass">

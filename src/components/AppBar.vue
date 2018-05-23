@@ -23,46 +23,44 @@ export default {
   props: {
     icon: {
       type: String,
-      default: 'arrow_back'
+      default: 'arrow_back',
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     progress: {
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     isHome() {
-      return !!(this.$route.name === 'home')
+      return !!(this.$route.name === 'home');
     },
     isSubject() {
-      return !!(this.$route.name === 'subject')
+      return !!(this.$route.name === 'subject');
     },
     subjectStyle() {
       if (this.progress < 1 && this.isSubject) {
         return {
           boxShadow: '0 0 0 transparent',
-          backgroundColor: `rgba(34, 34, 34, ${this.progress})`
-        }
+          backgroundColor: `rgba(34, 34, 34, ${this.progress})`,
+        };
       }
-      return {}
-    }
+      return {};
+    },
   },
   methods: {
     iconClick() {
       if (this.isHome) {
-        this.$emit('toggle')
+        this.$emit('toggle');
       } else {
-        this.$router.go(-1)
+        this.$router.go(-1);
       }
     },
-    search() {
-
-    },
+    search() {},
   },
-}
+};
 </script>
 
 <style lang="sass">

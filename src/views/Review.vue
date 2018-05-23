@@ -14,57 +14,56 @@
 </template>
 
 <script>
-import AppBar from '@/components/AppBar'
-import Stars from '@/components/Stars'
-import * as api from '@/api/api'
-import * as _ from 'lodash'
+import AppBar from '@/components/AppBar';
+import Stars from '@/components/Stars';
+import * as api from '@/api/api';
+import * as _ from 'lodash';
 
 export default {
-  data () {
+  data() {
     return {
-      review: null
-    }
+      review: null,
+    };
   },
   components: {
     AppBar,
-    Stars
+    Stars,
   },
   methods: {
     init() {
-      this.review = new Object({
+      this.review = {
         title: 'Loading...',
         content: '',
         rating: {
-          value: 0
+          value: 0,
         },
         author: {
-          name: ''
+          name: '',
         },
         useful_count: 0,
         useless_count: 0,
         created_at: '',
         updated_at: '',
-        id: 0
-      })
+        id: 0,
+      };
     },
     getReview() {
-      api.getReview(this.$route.params.id)
-        .then(res => {
-          _.merge(this.review, res)
-        })
-    }
+      api.getReview(this.$route.params.id).then((res) => {
+        _.merge(this.review, res);
+      });
+    },
   },
   activated() {
     if (this.$route.params.id !== this.review.id) {
-      this.init()
-      this.getReview()
+      this.init();
+      this.getReview();
     }
   },
   created() {
-    this.init()
-    this.getReview()
-  }
-}
+    this.init();
+    this.getReview();
+  },
+};
 </script>
 
 <style lang="sass">

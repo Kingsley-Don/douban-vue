@@ -10,13 +10,13 @@
 export default {
   methods: {
     returnBack() {
-      this.$router.go(-2)
+      this.$router.go(-2);
     },
     returnHome() {
-      this.$router.push({ path: '/' })
-    }
-  }
-}
+      this.$router.push({ path: '/' });
+    },
+  },
+};
 </script>
 
 <style lang="sass">

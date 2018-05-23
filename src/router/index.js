@@ -1,43 +1,43 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from '@/views/Home'
-import SmallList from '@/views/SmallList'
-import Subject from '@/views/Subject'
-import Discussion from '@/views/Discussion'
-import CommentList from '@/views/CommentList'
-import ReviewList from '@/views/ReviewList'
-import Review from '@/views/Review'
-import ErrorPage from '@/views/Error'
+import Home from '@/views/Home';
+import SmallList from '@/views/SmallList';
+import Subject from '@/views/Subject';
+import Discussion from '@/views/Discussion';
+import CommentList from '@/views/CommentList';
+import ReviewList from '@/views/ReviewList';
+import Review from '@/views/Review';
+import ErrorPage from '@/views/Error';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      redirect: '/movie'
+      redirect: '/movie',
     },
     {
       path: '/movie',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/movie/in-theaters',
       name: 'inTheaters',
-      component: SmallList
+      component: SmallList,
     },
     {
       path: '/movie/coming-soon',
       name: 'comingSoon',
-      component: SmallList
+      component: SmallList,
     },
     {
       path: '/movie/:id',
       name: 'subject',
-      component: Subject
+      component: Subject,
     },
     {
       path: '/movie/:id',
@@ -46,14 +46,14 @@ export default new Router({
         {
           path: 'comment',
           name: 'comments',
-          component: CommentList
+          component: CommentList,
         },
         {
           path: 'review',
           name: 'reviews',
-          component: ReviewList
-        }
-      ]
+          component: ReviewList,
+        },
+      ],
     },
     {
       path: '/review/:id',
@@ -63,11 +63,11 @@ export default new Router({
     {
       path: '/error',
       name: 'error',
-      component: ErrorPage
+      component: ErrorPage,
     },
     {
       path: '/*',
-      redirect: '/error'
+      redirect: '/error',
     },
   ],
-})
+});
