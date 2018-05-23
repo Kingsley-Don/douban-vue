@@ -22,18 +22,18 @@ export default {
   props: {
     subject: {
       type: Object,
-      // default: {
-      //   id: 0,
-      //   title: '',
-      //   rating: {
-      //     average: 0,
-      //   },
-      //   images: {
-      //     large: '',
-      //   },
-      //   mainland_pubdate: '',
-      // },
-      required: true,
+      default: {
+        id: 0,
+        title: '',
+        rating: {
+          average: 0,
+        },
+        images: {
+          large: '',
+        },
+        mainland_pubdate: '',
+      },
+      // required: true,
     },
     showDate: {
       type: Boolean,
