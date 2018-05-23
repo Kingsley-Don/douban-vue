@@ -4,7 +4,7 @@
 
 ## 预览
 
-访问[这里](http://47.93.224.150:8080)可在线预览
+访问[https://douban.kdon.me](https://douban.kdon.me)可在线预览
 
 ![](http://olh7l240x.bkt.clouddn.com/17-10-16/82360930.jpg)
 ![](http://olh7l240x.bkt.clouddn.com/17-10-16/62154002.jpg)
