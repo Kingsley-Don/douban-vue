@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {    //将www.exaple.com印射为/apis
-          target: 'https://api.douban.com/v2',  // 接口域名
+          target: 'http://api.douban.com/v2',  // 接口域名
           changeOrigin: true,  //是否跨域
           pathRewrite: {
             '^/api': ''
